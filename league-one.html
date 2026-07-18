@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>League One — WC2026 Fantasy Recap</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Daddy Pack Lovers — WC2026 Fantasy Recap</title>
 <style>
   :root{
     color-scheme: light dark;
@@ -131,6 +131,21 @@
   .award .stat{font-family:var(--mono); font-size:12.5px; color:var(--edge, var(--accent-ink)); font-weight:700}
   .award p{margin:9px 0 0; color:var(--muted); font-size:13px; line-height:1.45}
 
+  /* pot ledger + chips */
+  td.eur{font-family:var(--mono); font-weight:700; color:var(--accent-ink); text-align:right}
+  tr.repeat td:first-child{color:var(--accent-ink)}
+  .potsum{display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:16px; font-family:var(--mono); font-size:13px; color:var(--muted)}
+  .potsum b{color:var(--ink); font-weight:700}
+  .potsum .eur{color:var(--accent-ink); font-weight:700}
+  .chips{display:grid; gap:12px}
+  .chiprow{display:flex; gap:14px; align-items:flex-start; background:var(--surface); border:1px solid var(--line); border-radius:13px; padding:14px 16px}
+  .chiprow .ic{font-size:22px; line-height:1.1; flex:0 0 auto}
+  .chiprow .lab{font-weight:700; font-size:14.5px}
+  .chiprow .sub{font-family:var(--mono); font-size:10.5px; color:var(--faint); text-transform:uppercase; letter-spacing:.08em; font-weight:400}
+  .whos{display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:8px}
+  .cwho{display:inline-flex; align-items:center; gap:7px; font-size:13px; color:var(--ink)}
+  .cchip{width:10px; height:10px; border-radius:3px; flex:0 0 auto}
+  .cwho em{font-style:normal; font-family:var(--mono); font-size:11px; color:var(--faint)}
   footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--line); color:var(--faint); font-size:12.5px; font-family:var(--mono); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
   @media (max-width:560px){h1{font-size:42px} .end-label{font-size:11px}}
   @media (prefers-reduced-motion: reduce){*{transition:none!important}}
@@ -138,12 +153,12 @@
 
 <div class="wrap">
   <header class="mast">
-    <p class="eyebrow">World Cup 2026 · Fantasy</p>
-    <h1>League One<br>The <em>Race</em></h1>
-    <p class="dek">Five managers, one podium, and a lead that changed hands at the Round of 16. Here's how the table moved across the knockout run — press play and watch the positions rotate.</p>
+    <p class="eyebrow">World Cup 2026 · The Pot League</p>
+    <h1>Daddy Pack<br><em>Lovers</em></h1>
+    <p class="dek">Five managers, one podium, and a pot that grows every time someone finishes last. Here's how the table moved across the knockout run — press play and watch the positions rotate.</p>
     <div class="mast-meta">
       <span><b>5</b> managers</span>
-      <span><b>5</b> checkpoints tracked</span>
+      <span><b>€29</b> in the pot</span>
       <span>through the <b>Semi-finals</b></span>
     </div>
   </header>
@@ -190,13 +205,33 @@
   </section>
 
   <section>
+    <span class="sec-kicker">The pot · round lows</span>
+    <h2>Who went lowest — and paid</h2>
+    <p class="sec-sub">In the Daddy Pack, the lowest round score each week feeds the pot — €3 a group game, €5 a knockout. This is the settled ledger, and it even names the <b>Round of 32</b> and Group Stage 1 losers that the position charts above couldn't reach.</p>
+    <div class="panel stand">
+      <table>
+        <thead><tr><th>GW</th><th>Round</th><th>Lowest that round</th><th class="r">Stake</th></tr></thead>
+        <tbody id="pot-l1"></tbody>
+      </table>
+    </div>
+    <div class="potsum" id="potsum-l1"></div>
+  </section>
+
+  <section>
+    <span class="sec-kicker">Chips played</span>
+    <h2>Who burned what</h2>
+    <p class="sec-sub">Boosters spent across the tournament — and when.</p>
+    <div class="chips" id="chips-l1"></div>
+  </section>
+
+  <section>
     <span class="sec-kicker">The awards</span>
     <h2>Season superlatives</h2>
     <div class="awards" id="awards-l1"></div>
   </section>
 
   <footer>
-    <span>WC2026 Fantasy · League One · through the Semi-finals</span>
+    <span>Daddy Pack Lovers · WC2026 Fantasy · through the Semi-finals</span>
     <span>lower rank = better · ▲ places gained since GS2</span>
   </footer>
 </div>
@@ -338,8 +373,51 @@ function table(id,data){
 }
 function awards(id,list){document.getElementById(id).innerHTML=list.map(a=>`<div class="panel award" style="--edge:${a.edge}"><div class="tag">${a.tag}</div><div class="who">${a.who}</div><div class="stat">${a.stat}</div><p>${a.body}</p></div>`).join("");}
 
+const POT = [
+  {gw:1, round:"Group Stage 1", who:"alekriquelme", eur:3},
+  {gw:2, round:"Group Stage 2", who:"Brambedillo",  eur:3},
+  {gw:3, round:"Group Stage 3", who:"gmarkoss",     eur:3},
+  {gw:4, round:"Round of 32",   who:"mdteam",       eur:5},
+  {gw:5, round:"Round of 16",   who:"Brambedillo",  eur:5},
+  {gw:6, round:"Quarter-finals",who:"Brambedillo",  eur:5},
+  {gw:7, round:"Semi-finals",   who:"artElarry",    eur:5},
+];
+const CHIPS = [ {chip:"wildcard", who:"gmarkoss", round:"Group Stage 2"} ];
+const CHIP_META = {
+  wildcard:   {ic:"🃏", lab:"Wildcard",       sub:"unlimited free transfers"},
+  twelfth_man:{ic:"🪑", lab:"12th Man",        sub:"bench boost"},
+  max_captain:{ic:"👑", lab:"Triple Captain",  sub:"captain ×3"},
+};
+const colorOf = n => { const d=DATA.find(x=>x.name===n); return d?d.color:"var(--ctx)"; };
+
+function potLedger(id, sumId, rows){
+  const seen={}; rows.forEach(r=>seen[r.who]=(seen[r.who]||0)+1);
+  document.getElementById(id).innerHTML = rows.map(r=>
+    `<tr class="${seen[r.who]>1?'repeat':''}"><td class="num">${r.gw}</td>`+
+    `<td>${r.round}</td>`+
+    `<td><span class="mgr"><span class="chip" style="background:${colorOf(r.who)}"></span>${r.who}</span></td>`+
+    `<td class="eur">€${r.eur}</td></tr>`).join("");
+  const total=rows.reduce((a,r)=>a+r.eur,0);
+  const tally={}; rows.forEach(r=>tally[r.who]=(tally[r.who]||0)+r.eur);
+  const top=Object.entries(tally).sort((a,b)=>b[1]-a[1])[0];
+  document.getElementById(sumId).innerHTML =
+    `<span>Pot so far <span class="eur">€${total}</span></span>`+
+    `<span>Biggest donor <b>${top[0]}</b> <span class="eur">€${top[1]}</span> (${seen[top[0]]}×)</span>`+
+    `<span>One round left to settle — the <b>Final</b></span>`;
+}
+function chips(id, list){
+  const order=["wildcard","twelfth_man","max_captain"], by={};
+  list.forEach(c=>(by[c.chip]=by[c.chip]||[]).push(c));
+  document.getElementById(id).innerHTML = order.filter(t=>by[t]).map(t=>{
+    const m=CHIP_META[t], uses=by[t];
+    const who=uses.map(u=>`<span class="cwho"><span class="cchip" style="background:${colorOf(u.who)}"></span>${u.who} <em>${u.round.replace('Group Stage','GS')}</em></span>`).join("");
+    return `<div class="chiprow"><span class="ic">${m.ic}</span><div><div class="lab">${m.lab} <span class="sub">${m.sub} · ${uses.length}×</span></div><div class="whos">${who}</div></div></div>`;
+  }).join("");
+}
+
 race("race-l1", DATA, 56);
 renderBump("svg-l1","tip-l1", DATA, 5, {rowH:46, labelSpace:150});
 legend("leg-l1", DATA); table("tab-l1", DATA); awards("awards-l1", AWARDS);
+potLedger("pot-l1","potsum-l1", POT); chips("chips-l1", CHIPS);
 </script>
 </body></html>

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>League Two — WC2026 Fantasy Recap</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CYG Liga — WC2026 Fantasy Recap</title>
 <style>
   :root{
     color-scheme: light dark;
@@ -147,6 +147,16 @@
   .award .stat{font-family:var(--mono); font-size:12.5px; color:var(--edge, var(--accent-ink)); font-weight:700}
   .award p{margin:9px 0 0; color:var(--muted); font-size:13px; line-height:1.45}
 
+  /* chips */
+  .chips{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:12px}
+  .chiprow{display:flex; gap:14px; align-items:flex-start; background:var(--surface); border:1px solid var(--line); border-radius:13px; padding:14px 16px}
+  .chiprow .ic{font-size:22px; line-height:1.1; flex:0 0 auto}
+  .chiprow .lab{font-weight:700; font-size:14.5px}
+  .chiprow .sub{font-family:var(--mono); font-size:10.5px; color:var(--faint); text-transform:uppercase; letter-spacing:.08em; font-weight:400}
+  .whos{display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:8px}
+  .cwho{display:inline-flex; align-items:center; gap:7px; font-size:13px; color:var(--ink)}
+  .cchip{width:10px; height:10px; border-radius:3px; flex:0 0 auto}
+  .cwho em{font-style:normal; font-family:var(--mono); font-size:11px; color:var(--faint)}
   footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--line); color:var(--faint); font-size:12.5px; font-family:var(--mono); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
   @media (max-width:560px){h1{font-size:42px} .end-label{font-size:11px}}
   @media (prefers-reduced-motion: reduce){*{transition:none!important}}
@@ -155,11 +165,11 @@
 <div class="wrap">
   <header class="mast">
     <p class="eyebrow">World Cup 2026 · Fantasy</p>
-    <h1>League Two<br>The <em>Eighteen</em></h1>
-    <p class="dek">A field so deep the top five finished within eight points. Charges from the back, free-falls from the front, and a wire-to-wire scrap at the bottom. Press play and watch all eighteen positions rotate.</p>
+    <h1>CYG <em>Liga</em></h1>
+    <p class="dek">Eighteen deep and so tight the top five finished within eight points. Charges from the back, free-falls from the front, and a wire-to-wire scrap at the bottom. Press play and watch all eighteen positions rotate.</p>
     <div class="mast-meta">
       <span><b>18</b> managers</span>
-      <span><b>5</b> checkpoints tracked</span>
+      <span><b>18</b> chips burned</span>
       <span>through the <b>Semi-finals</b></span>
     </div>
   </header>
@@ -205,6 +215,13 @@
   </section>
 
   <section>
+    <span class="sec-kicker">Chips played · 18 burned</span>
+    <h2>Who burned what</h2>
+    <p class="sec-sub">A chip-happy league — eleven bench boosts, five wildcards and two triple-captains, almost all spent in the group stage.</p>
+    <div class="chips" id="chips-l2"></div>
+  </section>
+
+  <section>
     <span class="sec-kicker">The full field · all 18</span>
     <h2>A line on everyone</h2>
     <p class="sec-sub">Every manager's run, top to bottom — the rank at each checkpoint (GS2 · GS3 · R16 · QF · SF), final points, and where the tournament took them.</p>
@@ -219,7 +236,7 @@
   </div>
 
   <footer>
-    <span>WC2026 Fantasy · League Two · through the Semi-finals</span>
+    <span>CYG Liga · WC2026 Fantasy · through the Semi-finals</span>
     <span>lower rank = better · ▲ places gained since GS2</span>
   </footer>
 </div>
@@ -399,8 +416,45 @@ function roster(id,data){
 }
 function awards(id,list){document.getElementById(id).innerHTML=list.map(a=>`<div class="panel award" style="--edge:${a.edge}"><div class="tag">${a.tag}</div><div class="who">${a.who}</div><div class="stat">${a.stat}</div><p>${a.body}</p></div>`).join("");}
 
+const CHIPS = [
+  {chip:"twelfth_man", who:"Tihec",         round:"Group Stage 1"},
+  {chip:"twelfth_man", who:"Azazel 13",     round:"Group Stage 1"},
+  {chip:"twelfth_man", who:"Hulje",         round:"Group Stage 2"},
+  {chip:"twelfth_man", who:"DcBioo",        round:"Group Stage 2"},
+  {chip:"twelfth_man", who:"Gale11",        round:"Group Stage 2"},
+  {chip:"twelfth_man", who:"Gasho",         round:"Group Stage 2"},
+  {chip:"twelfth_man", who:"Matej1313",     round:"Group Stage 2"},
+  {chip:"twelfth_man", who:"Miho Will",     round:"Group Stage 2"},
+  {chip:"twelfth_man", who:"Mominjosi",     round:"Group Stage 2"},
+  {chip:"twelfth_man", who:"Srdela",        round:"Group Stage 2"},
+  {chip:"twelfth_man", who:"Srdela09",      round:"Group Stage 2"},
+  {chip:"wildcard",    who:"Azazel 13",     round:"Group Stage 1"},
+  {chip:"wildcard",    who:"Charabara",     round:"Group Stage 1"},
+  {chip:"wildcard",    who:"Tihec",         round:"Group Stage 2"},
+  {chip:"wildcard",    who:"Dzaja0601",     round:"Group Stage 2"},
+  {chip:"wildcard",    who:"Mataczz",       round:"Group Stage 2"},
+  {chip:"max_captain", who:"Mominjosi",     round:"Group Stage 1"},
+  {chip:"max_captain", who:"FC Skoro Prvi", round:"Group Stage 2"},
+];
+const CHIP_META = {
+  wildcard:   {ic:"🃏", lab:"Wildcard",       sub:"unlimited free transfers"},
+  twelfth_man:{ic:"🪑", lab:"12th Man",        sub:"bench boost"},
+  max_captain:{ic:"👑", lab:"Triple Captain",  sub:"captain ×3"},
+};
+const colorOf = n => { const d=DATA.find(x=>x.name===n); return d?d.color:"var(--ctx)"; };
+function chips(id, list){
+  const order=["twelfth_man","wildcard","max_captain"], by={};
+  list.forEach(c=>(by[c.chip]=by[c.chip]||[]).push(c));
+  document.getElementById(id).innerHTML = order.filter(t=>by[t]).map(t=>{
+    const m=CHIP_META[t], uses=by[t];
+    const who=uses.map(u=>`<span class="cwho"><span class="cchip" style="background:${colorOf(u.who)}"></span>${u.who} <em>${u.round.replace('Group Stage','GS')}</em></span>`).join("");
+    return `<div class="chiprow"><span class="ic">${m.ic}</span><div><div class="lab">${m.lab} <span class="sub">${m.sub} · ${uses.length}×</span></div><div class="whos">${who}</div></div></div>`;
+  }).join("");
+}
+
 race("race-l2", DATA, 38);
 renderBump("svg-l2","tip-l2", DATA, 18, {rowH:20, labelSpace:150});
 legend("leg-l2", DATA); awards("awards-l2", AWARDS); roster("roster-l2", DATA);
+chips("chips-l2", CHIPS);
 </script>
 </body></html>
