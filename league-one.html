@@ -157,7 +157,7 @@
   <header class="mast">
     <p class="eyebrow">World Cup 2026 · The Pot League</p>
     <h1>Daddy Pack<br><em>Lovers</em></h1>
-    <p class="dek">Five managers, one podium, and a pot that grows every time someone finishes last. Here's how the table moved across the knockout run — press play and watch the positions rotate.</p>
+    <p class="dek">Five managers, one podium, and a pot that grows every time someone finishes last. Here's how the table moved from the opening whistle to the semis — all seven rounds — press play and watch the positions rotate.</p>
     <div class="mast-meta">
       <span><b>5</b> managers</span>
       <span><b>€29</b> in the pot</span>
@@ -200,7 +200,7 @@
 
     <div class="panel stand">
       <table>
-        <thead><tr><th>#</th><th>Manager</th><th class="r">GS2</th><th class="r">GS3</th><th class="r">R16</th><th class="r">QF</th><th class="r">SF</th><th class="r">Points</th><th class="r">Swing</th></tr></thead>
+        <thead><tr><th>#</th><th>Manager</th><th class="r">GS1</th><th class="r">GS2</th><th class="r">GS3</th><th class="r">R32</th><th class="r">R16</th><th class="r">QF</th><th class="r">SF</th><th class="r">Points</th><th class="r">Swing</th></tr></thead>
         <tbody id="tab-l1"></tbody>
       </table>
     </div>
@@ -209,7 +209,7 @@
   <section>
     <span class="sec-kicker">The pot · round lows</span>
     <h2>Who went lowest — and paid</h2>
-    <p class="sec-sub">In the Daddy Pack, the lowest round score each week feeds the pot — €3 a group game, €5 a knockout. This is the settled ledger, and it even names the <b>Round of 32</b> and Group Stage 1 losers that the position charts above couldn't reach.</p>
+    <p class="sec-sub">In the Daddy Pack, the lowest round score each week feeds the pot — €3 a group game, €5 a knockout. This is the round-low (fewest points that round), <b>not</b> the overall table — which is how mdteam could sit top of the standings at the Round of 32 and still pay the €5 stake.</p>
     <div class="panel stand">
       <table>
         <thead><tr><th>GW</th><th>Round</th><th>Lowest that round</th><th class="r">Stake</th></tr></thead>
@@ -234,31 +234,31 @@
 
   <footer>
     <span>Daddy Pack Lovers · WC2026 Fantasy · through the Semi-finals</span>
-    <span>lower rank = better · ▲ places gained since GS2</span>
+    <span>lower rank = better · ▲ places gained since GS1</span>
   </footer>
 </div>
 
 <script>
-const ROUNDS = ["GS2","GS3","R16","QF","SF"];
-const ROUND_FULL = ["Group Stage 2","Group Stage 3","Round of 16","Quarter-finals","Semi-finals"];
+const ROUNDS = ["GS1","GS2","GS3","R32","R16","QF","SF"];
+const ROUND_FULL = ["Group Stage 1","Group Stage 2","Group Stage 3","Round of 32","Round of 16","Quarter-finals","Semi-finals"];
 const DATA = [
-  {name:"alekriquelme", ranks:[4,3,1,1,1], pts:492, color:"var(--s3)", hl:true},
-  {name:"mdteam",       ranks:[2,1,2,2,2], pts:446, color:"var(--s1)", hl:true},
-  {name:"artElarry",    ranks:[3,4,3,3,3], pts:409, color:"var(--s5)", hl:true},
-  {name:"gmarkoss",     ranks:[1,2,4,4,4], pts:395, color:"var(--s4)", hl:true},
-  {name:"Brambedillo",  ranks:[5,5,5,5,5], pts:377, color:"var(--s2)", hl:true},
+  {name:"alekriquelme", ranks:[5,4,3,2,1,1,1], pts:492, color:"var(--s3)", hl:true},
+  {name:"mdteam",       ranks:[1,2,1,1,2,2,2], pts:446, color:"var(--s1)", hl:true},
+  {name:"artElarry",    ranks:[2,3,4,4,3,3,3], pts:409, color:"var(--s5)", hl:true},
+  {name:"gmarkoss",     ranks:[3,1,2,3,4,4,4], pts:395, color:"var(--s4)", hl:true},
+  {name:"Brambedillo",  ranks:[4,5,5,5,5,5,5], pts:377, color:"var(--s2)", hl:true},
 ];
 const AWARDS = [
-  {tag:"Champion's Charge", who:"alekriquelme", stat:"4th → 1st · 492 pts", edge:"var(--s3)",
-   body:"Sat fourth after the groups, then flipped the switch: top of the table from the Round of 16 onward and never threatened again."},
-  {tag:"The Bridesmaid", who:"mdteam", stat:"led once · 2nd · 446 pts", edge:"var(--s1)",
-   body:"Topped the table after Group Stage 3 — the only lead the eventual champion ever conceded — then settled into a rock-solid second for four straight checkpoints. One blemish: the Round of 32 low that cost a €5 stake."},
-  {tag:"Mr. Consistent", who:"artElarry", stat:"3·4·3·3·3 · 409 pts", edge:"var(--s5)",
-   body:"The metronome. Never higher than third, never lower than fourth — a podium finish built on zero drama and no blank rounds."},
+  {tag:"Champion's Charge", who:"alekriquelme", stat:"5th → 1st · 492 pts", edge:"var(--s3)",
+   body:"Dead last after the opening round, then a relentless climb — top of the table from the Round of 16 onward and never threatened again."},
+  {tag:"The Bridesmaid", who:"mdteam", stat:"led 3 rounds · 2nd · 446 pts", edge:"var(--s1)",
+   body:"Topped the table three times — the opener, Group Stage 3 and the Round of 32 — but never at the finish. The delicious irony: at that same RO32 it posted the round's lowest score, a €5 stake, while still sitting first overall."},
+  {tag:"Mr. Consistent", who:"artElarry", stat:"never outside 2–4 · 409 pts", edge:"var(--s5)",
+   body:"The metronome. Across all seven checkpoints never higher than second, never lower than fourth — a podium finish built on zero drama and no blank rounds."},
   {tag:"The Collapse", who:"gmarkoss", stat:"1st → 4th · 395 pts", edge:"var(--s4)",
-   body:"Led the whole league at the group stage, then slid three places by the Round of 16 and never recovered. The cautionary tale."},
-  {tag:"Wooden Spoon", who:"Brambedillo", stat:"5th every round · 377 pts", edge:"var(--s2)",
-   body:"Wire to wire at the bottom. Five checkpoints, five last places — the most consistent run in the league, just facing the wrong way."},
+   body:"Led the whole league at Group Stage 2, then slid to fourth by the Round of 16 and never recovered. The cautionary tale."},
+  {tag:"Wooden Spoon", who:"Brambedillo", stat:"last ×6 · 377 pts", edge:"var(--s2)",
+   body:"Fourth after the opener, then last at every one of the next six checkpoints — the most consistent run in the league, just facing the wrong way."},
 ];
 
 /* ---------- animated race board ---------- */
@@ -365,7 +365,7 @@ function renderBump(svgId, tipId, data, maxRank, opts){
     tip.innerHTML=`<div class="tname"><span class="sw" style="background:${d.color}"></span>${d.name}</div>`+
       `<div class="trow"><span>Finish</span><b class="num" style="color:var(--ink)">#${last}</b></div>`+
       `<div class="trow"><span>Points</span><b class="num" style="color:var(--ink)">${d.pts}</b></div>`+
-      `<div class="trow"><span>Swing since GS2</span><b class="num ${swCls}">${swTxt}</b></div>`+
+      `<div class="trow"><span>Swing since GS1</span><b class="num ${swCls}">${swTxt}</b></div>`+
       `<div class="seq">${seq}</div>`;
     tip.classList.add("show");
     const tw=tip.offsetWidth, th=tip.offsetHeight; let px=rx+16, py=ry-th-10;

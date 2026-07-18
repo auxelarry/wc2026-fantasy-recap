@@ -227,7 +227,7 @@
   <section>
     <span class="sec-kicker">The full field · all 18</span>
     <h2>A line on everyone</h2>
-    <p class="sec-sub">Every manager's run, top to bottom — the rank at each checkpoint (GS2 · GS3 · R16 · QF · SF), final points, and where the tournament took them.</p>
+    <p class="sec-sub">Every manager's run, top to bottom — the rank at each checkpoint (GS1 · GS2 · GS3 · R32 · R16 · QF · SF), final points, and where the tournament took them.</p>
     <div class="roster" id="roster-l2"></div>
   </section>
 
@@ -240,60 +240,60 @@
 
   <footer>
     <span>CYG Liga · WC2026 Fantasy · through the Semi-finals</span>
-    <span>lower rank = better · ▲ places gained since GS2</span>
+    <span>lower rank = better · ▲ places gained since GS1</span>
   </footer>
 </div>
 
 <script>
-const ROUNDS = ["GS2","GS3","R16","QF","SF"];
-const ROUND_FULL = ["Group Stage 2","Group Stage 3","Round of 16","Quarter-finals","Semi-finals"];
+const ROUNDS = ["GS1","GS2","GS3","R32","R16","QF","SF"];
+const ROUND_FULL = ["Group Stage 1","Group Stage 2","Group Stage 3","Round of 32","Round of 16","Quarter-finals","Semi-finals"];
 const DATA = [
-  {name:"Hulje",        ranks:[3,3,1,1,1],   pts:631, color:"var(--s3)", hl:true,
-   blurb:"Never out of the top three, and untouchable once it hit the front at the Round of 16 — the tournament's highest score anywhere, full stop."},
-  {name:"Tihec",        ranks:[1,1,3,4,2],   pts:602, color:"var(--s5)", hl:true,
-   blurb:"Set the early pace with back-to-back checkpoints on top, wobbled to fourth in the quarters, then surged back to grab second on the line."},
-  {name:"Chochek",      ranks:[12,8,5,2,3],  pts:602, color:"var(--s2)", hl:true,
-   blurb:"The climb of the tournament — 12th to 2nd in four steps, level on points for the runner-up spot and only edged to third on countback."},
-  {name:"DcBioo",       ranks:[11,5,4,5,4],  pts:597, color:"var(--ctx)",
-   blurb:"From 11th into the top five in a single jump, and never left it — a quietly relentless run to fourth."},
-  {name:"Mominjosi",    ranks:[4,4,2,3,5],   pts:597, color:"var(--ctx)",
-   blurb:"Lived in the top five the whole way and touched second at the Round of 16, before a late slip to fifth on the final checkpoint."},
-  {name:"Matej1313",    ranks:[6,2,6,10,6],  pts:595, color:"var(--ctx)",
-   blurb:"The rollercoaster: up to 2nd, down to 10th, back to 6th — and the biggest single semi-final haul in the league (68 points)."},
-  {name:"Gale11",       ranks:[2,9,7,6,7],   pts:590, color:"var(--ctx)",
-   blurb:"Flew out of the blocks in second, then drifted into the mid-table pack and settled around seventh."},
-  {name:"Srdela",       ranks:[14,6,8,8,8],  pts:585, color:"var(--ctx)",
-   blurb:"Bolted from 14th to 6th after the groups, then anchored a rock-steady eighth for the rest of the run."},
-  {name:"Charabara",    ranks:[8,7,9,7,9],   pts:575, color:"var(--ctx)",
-   blurb:"Mr. Mid-table — never outside 7th–9th at any checkpoint. Utterly unshakeable in the middle of the pack."},
-  {name:"Dzaja0601",    ranks:[9,13,11,9,10], pts:570, color:"var(--ctx)",
-   blurb:"Dipped to 13th, clawed back to 9th, and rode out the closing rounds around tenth."},
-  {name:"Gasho",        ranks:[5,10,14,11,11],pts:565, color:"var(--ctx)",
-   blurb:"Started brightly in fifth, then slid all the way to 14th before steadying in the low teens."},
-  {name:"Mataczz",      ranks:[18,16,16,15,12],pts:558, color:"var(--s1)", hl:true,
-   blurb:"The great escape — dead last after the groups, then a monster semi-final (63) finally hauled it six places clear of the basement."},
-  {name:"Miho Will",    ranks:[13,15,12,13,13],pts:558, color:"var(--ctx)",
-   blurb:"Camped around 13th from first checkpoint to last — the field's steadiest hand in the lower half."},
-  {name:"Srdela09",     ranks:[7,12,10,12,14], pts:556, color:"var(--s4)", hl:true,
-   blurb:"The steepest slide in the league: a top-seven side at the groups that leaked places at almost every checkpoint, down to 14th."},
-  {name:"Doms994",      ranks:[10,11,13,14,15],pts:550, color:"var(--ctx)",
-   blurb:"A gentle, unbroken drift — a place lost at nearly every checkpoint, from 10th down to 15th."},
-  {name:"FC Skoro Prvi",ranks:[15,14,15,16,16],pts:543, color:"var(--ctx)",
-   blurb:"Hovered in the low teens throughout before slipping to 16th for the closing rounds."},
-  {name:"artElarry",    ranks:[16,18,18,18,17],pts:409, color:"var(--ctx)",
+  {name:"Hulje",        ranks:[2,3,3,1,1,1,1],    pts:631, color:"var(--s3)", hl:true,
+   blurb:"Never out of the top three, seized the top at the Round of 32 and never let go — the tournament's highest score anywhere, full stop."},
+  {name:"Tihec",        ranks:[1,1,1,2,3,4,2],    pts:602, color:"var(--s5)", hl:true,
+   blurb:"Set the pace — top of the table for the first three rounds — slipped to fourth by the quarters, then rallied to grab second on the line."},
+  {name:"Chochek",      ranks:[15,12,8,8,5,2,3],  pts:602, color:"var(--s2)", hl:true,
+   blurb:"The climb of the tournament — 15th at the opener to a photo-finish for second, level on 602 points and edged to third only on countback."},
+  {name:"DcBioo",       ranks:[13,11,5,4,4,5,4],  pts:597, color:"var(--ctx)",
+   blurb:"A quiet surger: 13th after the opener, into the top five by Group Stage 3, and camped there to a final fourth."},
+  {name:"Mominjosi",    ranks:[3,4,4,5,2,3,5],    pts:597, color:"var(--ctx)",
+   blurb:"Lived in the top five almost throughout, touched second at the Round of 16, then slipped to fifth on the final checkpoint."},
+  {name:"Matej1313",    ranks:[4,6,2,3,6,10,6],   pts:595, color:"var(--ctx)",
+   blurb:"The rollercoaster — up to 2nd, down to 10th, back to 6th — and the biggest single semi-final haul in the league (68 points)."},
+  {name:"Gale11",       ranks:[7,2,9,9,7,6,7],    pts:590, color:"var(--ctx)",
+   blurb:"Flew to second by Group Stage 2, then drifted into the mid-table pack and settled around seventh."},
+  {name:"Srdela",       ranks:[9,14,6,7,8,8,8],   pts:585, color:"var(--ctx)",
+   blurb:"A dip to 14th, then a bolt up to 6th, and a rock-steady eighth for the whole back half."},
+  {name:"Charabara",    ranks:[10,8,7,10,9,7,9],  pts:575, color:"var(--ctx)",
+   blurb:"Mr. Mid-table — never outside 7th–10th after the opener. Utterly unshakeable in the middle of the pack."},
+  {name:"Dzaja0601",    ranks:[11,9,13,12,11,9,10],pts:570, color:"var(--ctx)",
+   blurb:"Bobbed around the low teens all tournament, never quite breaking into the top eight."},
+  {name:"Gasho",        ranks:[6,5,10,13,14,11,11],pts:565, color:"var(--ctx)",
+   blurb:"A bright start — fifth by Group Stage 2 — then a long slide down into the low teens."},
+  {name:"Mataczz",      ranks:[18,18,16,16,16,15,12],pts:558, color:"var(--s1)", hl:true,
+   blurb:"The great escape — dead last for the first two rounds, then clawed six places clear of the basement on a monster semi-final (63)."},
+  {name:"Miho Will",    ranks:[12,13,15,14,12,13,13],pts:558, color:"var(--ctx)",
+   blurb:"Anchored around 13th from wire to wire — the field's steadiest hand in the lower half."},
+  {name:"Srdela09",     ranks:[14,7,12,6,10,12,14],pts:556, color:"var(--ctx)",
+   blurb:"A proper rollercoaster — up to 7th, then 6th by the Round of 32, before sliding all the way back to 14th."},
+  {name:"Doms994",      ranks:[8,10,11,11,13,14,15],pts:550, color:"var(--ctx)",
+   blurb:"A gentle, unbroken drift — eighth after the opener, a place shed at almost every checkpoint down to 15th."},
+  {name:"FC Skoro Prvi",ranks:[5,15,14,15,15,16,16],pts:543, color:"var(--s4)", hl:true,
+   blurb:"The steepest fall in either league: fifth after the opening round, then straight into the bottom four and down to 16th."},
+  {name:"artElarry",    ranks:[16,16,18,18,18,18,17],pts:409, color:"var(--ctx)",
    blurb:"Propped up the bottom of the table for most of the run, with a late nudge up to 17th at the semis."},
-  {name:"Azazel 13",    ranks:[17,17,17,17,18],pts:393, color:"var(--ctx)",
-   blurb:"Wire-to-wire in the bottom two, and slipped to the very foot of the table at the final checkpoint."},
+  {name:"Azazel 13",    ranks:[17,17,17,17,17,17,18],pts:393, color:"var(--ctx)",
+   blurb:"Wire-to-wire in the bottom two — 17th at almost every checkpoint before slipping to last at the line."},
 ];
 const AWARDS = [
-  {tag:"Biggest Climber", who:"Chochek", stat:"12th → 3rd · +9", edge:"var(--s2)",
-   body:"The surge of the tournament. From mid-table obscurity into a photo-finish for second, level on 602 points at the line."},
+  {tag:"Biggest Climber", who:"Chochek", stat:"15th → 3rd · +12", edge:"var(--s2)",
+   body:"The surge of the tournament. From 15th at the opening round into a photo-finish for second, level on 602 points at the line."},
   {tag:"The Great Escape", who:"Mataczz", stat:"18th → 12th · +6", edge:"var(--s1)",
-   body:"Dead last after the groups. Clawed six places out of the relegation air with the second-biggest semi-final haul (63)."},
-  {tag:"Free-fall", who:"Srdela09", stat:"7th → 14th · −7", edge:"var(--s4)",
-   body:"The steepest slide in either league — a top-seven side at the groups that leaked places at nearly every checkpoint."},
-  {tag:"Champion", who:"Hulje", stat:"3rd → 1st · 631 pts", edge:"var(--s3)",
-   body:"Top of an eighteen-strong field and the highest score anywhere — 631, a clear 29 clear of the tie for second."},
+   body:"Dead last for the first two rounds. Then a monster semi-final (63) hauled it six places clear of the relegation air."},
+  {tag:"Free-fall", who:"FC Skoro Prvi", stat:"5th → 16th · −11", edge:"var(--s4)",
+   body:"The steepest slide in either league — fifth after the opening round, then a place lost at nearly every checkpoint down to 16th."},
+  {tag:"Champion", who:"Hulje", stat:"2nd → 1st · 631 pts", edge:"var(--s3)",
+   body:"Top of an eighteen-strong field and the highest score anywhere — 631, seized at the Round of 32 and never surrendered."},
 ];
 
 /* ---------- animated race board ---------- */
@@ -395,7 +395,7 @@ function renderBump(svgId, tipId, data, maxRank, opts){
     tip.innerHTML=`<div class="tname"><span class="sw" style="background:${d.color}"></span>${d.name}</div>`+
       `<div class="trow"><span>Finish</span><b class="num" style="color:var(--ink)">#${last}</b></div>`+
       `<div class="trow"><span>Points</span><b class="num" style="color:var(--ink)">${d.pts}</b></div>`+
-      `<div class="trow"><span>Swing since GS2</span><b class="num ${swCls}">${swTxt}</b></div>`+
+      `<div class="trow"><span>Swing since GS1</span><b class="num ${swCls}">${swTxt}</b></div>`+
       `<div class="seq">${seq}</div>`;
     tip.classList.add("show");
     const tw=tip.offsetWidth, th=tip.offsetHeight; let px=rx+16, py=ry-th-10;
