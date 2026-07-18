@@ -395,11 +395,27 @@ const POT = [
   {gw:6, round:"Quarter-finals",who:"Brambedillo",  eur:5},
   {gw:7, round:"Semi-finals",   who:"artElarry",    eur:5},
 ];
-const CHIPS = [ {chip:"wildcard", who:"gmarkoss", round:"Group Stage 2"} ];
+const CHIPS = [
+  {chip:"wildcard", who:"artElarry", round:"GS3"},
+  {chip:"wildcard", who:"gmarkoss", round:"GS3"},
+  {chip:"wildcard", who:"Brambedillo", round:"R16"},
+  {chip:"wildcard", who:"mdteam", round:"QF"},
+  {chip:"wildcard", who:"alekriquelme", round:"SF"},
+  {chip:"twelfth_man", who:"artElarry", round:"SF"},
+  {chip:"max_captain", who:"mdteam", round:"GS3"},
+  {chip:"max_captain", who:"alekriquelme", round:"R16"},
+  {chip:"max_captain", who:"Brambedillo", round:"QF"},
+  {chip:"qualification", who:"alekriquelme", round:"QF"},
+  {chip:"qualification", who:"artElarry", round:"QF"},
+  {chip:"qualification", who:"mdteam", round:"SF"},
+  {chip:"qualification", who:"Brambedillo", round:"SF"},
+];
 const CHIP_META = {
-  wildcard:   {ic:"🃏", lab:"Wildcard",       sub:"unlimited free transfers"},
-  twelfth_man:{ic:"🪑", lab:"12th Man",        sub:"bench boost"},
-  max_captain:{ic:"👑", lab:"Triple Captain",  sub:"captain ×3"},
+  wildcard:     {ic:"🃏", lab:"Wildcard",       sub:"unlimited free transfers"},
+  twelfth_man:  {ic:"🪑", lab:"12th Man",        sub:"bench boost"},
+  max_captain:  {ic:"👑", lab:"Triple Captain",  sub:"captain ×3"},
+  qualification:{ic:"🎟️", lab:"Qualification",   sub:"advancement bonus"},
+  clean_sheet:  {ic:"🧤", lab:"Clean Sheet",      sub:"clean-sheet bonus"},
 };
 const colorOf = n => { const d=DATA.find(x=>x.name===n); return d?d.color:"var(--ctx)"; };
 
@@ -419,7 +435,7 @@ function potLedger(id, sumId, rows){
     `<span>One round left to settle — the <b>Final</b></span>`;
 }
 function chips(id, list){
-  const order=["wildcard","twelfth_man","max_captain"], by={};
+  const order=["wildcard","twelfth_man","max_captain","qualification","clean_sheet"], by={};
   list.forEach(c=>(by[c.chip]=by[c.chip]||[]).push(c));
   document.getElementById(id).innerHTML = order.filter(t=>by[t]).map(t=>{
     const m=CHIP_META[t], uses=by[t];

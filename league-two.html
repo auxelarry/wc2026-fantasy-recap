@@ -172,7 +172,7 @@
     <p class="dek">Eighteen deep and so tight the top five finished within eight points. Charges from the back, free-falls from the front, and a wire-to-wire scrap at the bottom. Press play and watch all eighteen positions rotate.</p>
     <div class="mast-meta">
       <span><b>18</b> managers</span>
-      <span><b>18</b> chips burned</span>
+      <span><b>79</b> chips burned</span>
       <span>through the <b>Semi-finals</b></span>
     </div>
   </header>
@@ -218,9 +218,9 @@
   </section>
 
   <section>
-    <span class="sec-kicker">Chips played · 18 burned</span>
+    <span class="sec-kicker">Chips played · 79 burned</span>
     <h2>Who burned what</h2>
-    <p class="sec-sub">A chip-happy league — eleven bench boosts, five wildcards and two triple-captains, almost all spent in the group stage.</p>
+    <p class="sec-sub">A chip-happy league — the field emptied the locker: 18 Wildcards, 17 bench boosts, 9 triple-captains, 18 Qualification chips and 17 Clean Sheets, spread right across the tournament.</p>
     <div class="chips" id="chips-l2"></div>
   </section>
 
@@ -429,33 +429,96 @@ function roster(id,data){
 function awards(id,list){document.getElementById(id).innerHTML=list.map(a=>`<div class="panel award" style="--edge:${a.edge}"><div class="tag">${a.tag}</div><div class="who">${a.who}</div><div class="stat">${a.stat}</div><p>${a.body}</p></div>`).join("");}
 
 const CHIPS = [
-  {chip:"twelfth_man", who:"Tihec",         round:"Group Stage 1"},
-  {chip:"twelfth_man", who:"Azazel 13",     round:"Group Stage 1"},
-  {chip:"twelfth_man", who:"Hulje",         round:"Group Stage 2"},
-  {chip:"twelfth_man", who:"DcBioo",        round:"Group Stage 2"},
-  {chip:"twelfth_man", who:"Gale11",        round:"Group Stage 2"},
-  {chip:"twelfth_man", who:"Gasho",         round:"Group Stage 2"},
-  {chip:"twelfth_man", who:"Matej1313",     round:"Group Stage 2"},
-  {chip:"twelfth_man", who:"Miho Will",     round:"Group Stage 2"},
-  {chip:"twelfth_man", who:"Mominjosi",     round:"Group Stage 2"},
-  {chip:"twelfth_man", who:"Srdela",        round:"Group Stage 2"},
-  {chip:"twelfth_man", who:"Srdela09",      round:"Group Stage 2"},
-  {chip:"wildcard",    who:"Azazel 13",     round:"Group Stage 1"},
-  {chip:"wildcard",    who:"Charabara",     round:"Group Stage 1"},
-  {chip:"wildcard",    who:"Tihec",         round:"Group Stage 2"},
-  {chip:"wildcard",    who:"Dzaja0601",     round:"Group Stage 2"},
-  {chip:"wildcard",    who:"Mataczz",       round:"Group Stage 2"},
-  {chip:"max_captain", who:"Mominjosi",     round:"Group Stage 1"},
-  {chip:"max_captain", who:"FC Skoro Prvi", round:"Group Stage 2"},
+  {chip:"wildcard", who:"Tihec", round:"GS2"},
+  {chip:"wildcard", who:"Charabara", round:"GS2"},
+  {chip:"wildcard", who:"Dzaja0601", round:"GS2"},
+  {chip:"wildcard", who:"Azazel 13", round:"GS2"},
+  {chip:"wildcard", who:"Hulje", round:"GS3"},
+  {chip:"wildcard", who:"Chochek", round:"GS3"},
+  {chip:"wildcard", who:"DcBioo", round:"GS3"},
+  {chip:"wildcard", who:"Mominjosi", round:"GS3"},
+  {chip:"wildcard", who:"Matej1313", round:"GS3"},
+  {chip:"wildcard", who:"Gale11", round:"GS3"},
+  {chip:"wildcard", who:"Srdela", round:"GS3"},
+  {chip:"wildcard", who:"Gasho", round:"GS3"},
+  {chip:"wildcard", who:"Mataczz", round:"GS3"},
+  {chip:"wildcard", who:"Miho Will", round:"GS3"},
+  {chip:"wildcard", who:"Srdela09", round:"GS3"},
+  {chip:"wildcard", who:"Doms994", round:"GS3"},
+  {chip:"wildcard", who:"artElarry", round:"GS3"},
+  {chip:"wildcard", who:"FC Skoro Prvi", round:"QF"},
+  {chip:"twelfth_man", who:"Tihec", round:"GS1"},
+  {chip:"twelfth_man", who:"Azazel 13", round:"GS1"},
+  {chip:"twelfth_man", who:"Hulje", round:"GS2"},
+  {chip:"twelfth_man", who:"DcBioo", round:"GS2"},
+  {chip:"twelfth_man", who:"Mominjosi", round:"GS2"},
+  {chip:"twelfth_man", who:"Matej1313", round:"GS2"},
+  {chip:"twelfth_man", who:"Gale11", round:"GS2"},
+  {chip:"twelfth_man", who:"Srdela", round:"GS2"},
+  {chip:"twelfth_man", who:"Gasho", round:"GS2"},
+  {chip:"twelfth_man", who:"Miho Will", round:"GS2"},
+  {chip:"twelfth_man", who:"Srdela09", round:"GS2"},
+  {chip:"twelfth_man", who:"Charabara", round:"GS3"},
+  {chip:"twelfth_man", who:"Dzaja0601", round:"GS3"},
+  {chip:"twelfth_man", who:"FC Skoro Prvi", round:"GS3"},
+  {chip:"twelfth_man", who:"Mataczz", round:"R16"},
+  {chip:"twelfth_man", who:"Doms994", round:"QF"},
+  {chip:"twelfth_man", who:"artElarry", round:"SF"},
+  {chip:"max_captain", who:"Mominjosi", round:"GS1"},
+  {chip:"max_captain", who:"FC Skoro Prvi", round:"GS2"},
+  {chip:"max_captain", who:"Azazel 13", round:"GS3"},
+  {chip:"max_captain", who:"Gale11", round:"R16"},
+  {chip:"max_captain", who:"Dzaja0601", round:"R16"},
+  {chip:"max_captain", who:"Mataczz", round:"QF"},
+  {chip:"max_captain", who:"Srdela09", round:"QF"},
+  {chip:"max_captain", who:"Chochek", round:"SF"},
+  {chip:"max_captain", who:"Charabara", round:"SF"},
+  {chip:"qualification", who:"Hulje", round:"R32"},
+  {chip:"qualification", who:"Tihec", round:"R32"},
+  {chip:"qualification", who:"DcBioo", round:"R32"},
+  {chip:"qualification", who:"Mominjosi", round:"R32"},
+  {chip:"qualification", who:"Matej1313", round:"R32"},
+  {chip:"qualification", who:"Gale11", round:"R32"},
+  {chip:"qualification", who:"Srdela", round:"R32"},
+  {chip:"qualification", who:"Charabara", round:"R32"},
+  {chip:"qualification", who:"Dzaja0601", round:"R32"},
+  {chip:"qualification", who:"Mataczz", round:"R32"},
+  {chip:"qualification", who:"Srdela09", round:"R32"},
+  {chip:"qualification", who:"Doms994", round:"R32"},
+  {chip:"qualification", who:"Azazel 13", round:"R32"},
+  {chip:"qualification", who:"Chochek", round:"R16"},
+  {chip:"qualification", who:"Miho Will", round:"R16"},
+  {chip:"qualification", who:"FC Skoro Prvi", round:"R16"},
+  {chip:"qualification", who:"Gasho", round:"QF"},
+  {chip:"qualification", who:"artElarry", round:"QF"},
+  {chip:"clean_sheet", who:"DcBioo", round:"R16"},
+  {chip:"clean_sheet", who:"Mominjosi", round:"R16"},
+  {chip:"clean_sheet", who:"Charabara", round:"R16"},
+  {chip:"clean_sheet", who:"Gasho", round:"R16"},
+  {chip:"clean_sheet", who:"Srdela09", round:"R16"},
+  {chip:"clean_sheet", who:"Doms994", round:"R16"},
+  {chip:"clean_sheet", who:"Azazel 13", round:"R16"},
+  {chip:"clean_sheet", who:"Hulje", round:"QF"},
+  {chip:"clean_sheet", who:"Chochek", round:"QF"},
+  {chip:"clean_sheet", who:"Gale11", round:"QF"},
+  {chip:"clean_sheet", who:"Dzaja0601", round:"QF"},
+  {chip:"clean_sheet", who:"Miho Will", round:"QF"},
+  {chip:"clean_sheet", who:"Tihec", round:"SF"},
+  {chip:"clean_sheet", who:"Matej1313", round:"SF"},
+  {chip:"clean_sheet", who:"Srdela", round:"SF"},
+  {chip:"clean_sheet", who:"Mataczz", round:"SF"},
+  {chip:"clean_sheet", who:"FC Skoro Prvi", round:"SF"},
 ];
 const CHIP_META = {
-  wildcard:   {ic:"🃏", lab:"Wildcard",       sub:"unlimited free transfers"},
-  twelfth_man:{ic:"🪑", lab:"12th Man",        sub:"bench boost"},
-  max_captain:{ic:"👑", lab:"Triple Captain",  sub:"captain ×3"},
+  wildcard:     {ic:"🃏", lab:"Wildcard",       sub:"unlimited free transfers"},
+  twelfth_man:  {ic:"🪑", lab:"12th Man",        sub:"bench boost"},
+  max_captain:  {ic:"👑", lab:"Triple Captain",  sub:"captain ×3"},
+  qualification:{ic:"🎟️", lab:"Qualification",   sub:"advancement bonus"},
+  clean_sheet:  {ic:"🧤", lab:"Clean Sheet",      sub:"clean-sheet bonus"},
 };
 const colorOf = n => { const d=DATA.find(x=>x.name===n); return d?d.color:"var(--ctx)"; };
 function chips(id, list){
-  const order=["twelfth_man","wildcard","max_captain"], by={};
+  const order=["wildcard","twelfth_man","max_captain","qualification","clean_sheet"], by={};
   list.forEach(c=>(by[c.chip]=by[c.chip]||[]).push(c));
   document.getElementById(id).innerHTML = order.filter(t=>by[t]).map(t=>{
     const m=CHIP_META[t], uses=by[t];
