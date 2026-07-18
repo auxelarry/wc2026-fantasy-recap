@@ -73,20 +73,21 @@
   .step-dot:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
   .race-board{position:relative; margin-top:16px}
   .race-row{position:absolute; left:0; right:0; display:flex; align-items:center; gap:13px; padding:0 14px;
-    background:var(--surface2); border:1px solid var(--line2); border-radius:11px;
+    background:var(--surface2); border:1px solid var(--line2); border-radius:11px; overflow:hidden;
     transition:transform .95s cubic-bezier(.22,.61,.36,1), box-shadow .5s; will-change:transform}
   .race-row .rk{width:26px; text-align:right; font-family:var(--mono); font-weight:700; font-size:17px; color:var(--muted); font-variant-numeric:tabular-nums}
   .race-row .chip{width:13px; height:13px; border-radius:4px; flex:0 0 auto}
-  .race-row .rn{font-weight:600; font-size:clamp(14px,1.7vw,16px)}
-  .race-row .delta{margin-left:auto; font-family:var(--mono); font-size:12.5px; font-weight:700; color:var(--faint)}
+  .race-row .rn{font-weight:600; font-size:clamp(14px,1.7vw,16px); min-width:0; flex-shrink:3; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .race-row .delta{margin-left:auto; font-family:var(--mono); font-size:12.5px; font-weight:700; color:var(--faint); flex:0 0 auto; padding-left:6px}
   .race-row .delta.up{color:var(--good)} .race-row .delta.down{color:var(--crit)}
   .race-row.mv-up{box-shadow:inset 3px 0 0 var(--good), 0 6px 18px -10px rgba(0,0,0,.4)}
   .race-row.mv-down{box-shadow:inset 3px 0 0 var(--crit), 0 6px 18px -10px rgba(0,0,0,.4)}
   .race-row.lead{border-color:color-mix(in srgb,var(--accent) 55%, var(--line))}
   .race-cap{margin-top:14px; font-family:var(--mono); font-size:11.5px; color:var(--faint)}
-  .race-row .rchips{display:inline-flex; align-items:center; gap:4px; margin-left:10px; line-height:1}
-  .race-row .rchips .rc{font-size:14px; opacity:.5; transition:opacity .3s}
-  .race-row .rchips .rc.now{opacity:1; animation:chippop .6s cubic-bezier(.2,1.3,.4,1)}
+  .race-row .rchips{display:inline-flex; align-items:center; gap:4px; margin-left:10px; line-height:1; flex:0 1 auto; min-width:0; overflow:hidden}
+  .race-row .rchips .rc{display:inline-flex; align-items:center; gap:5px; font-size:14px}
+  .race-row .rchips .rc em{font-style:normal; font-family:var(--mono); font-size:11px; font-weight:700; color:var(--faint); text-transform:uppercase; letter-spacing:.04em}
+  .race-row .rchips .rc.now{animation:chippop .6s cubic-bezier(.2,1.3,.4,1)}
   @keyframes chippop{0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.35)}100%{transform:scale(1)}}
 
   /* ---- bump chart ---- */
@@ -164,7 +165,8 @@
   .cchip{width:10px; height:10px; border-radius:3px; flex:0 0 auto}
   .cwho em{font-style:normal; font-family:var(--mono); font-size:11px; color:var(--faint)}
   footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--line); color:var(--faint); font-size:12.5px; font-family:var(--mono); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
-  @media (max-width:560px){h1{font-size:42px} .end-label{font-size:11px}}
+  @media (max-width:560px){h1{font-size:42px} .end-label{font-size:11px}
+    .race-row{gap:8px} .race-row .rchips{gap:2px; margin-left:6px} .race-row .rchips .rc{font-size:12px}}
   @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 
@@ -307,8 +309,8 @@ function race(rootId, data, rowH){
       del.className='delta '+(sw>0?'up':(sw<0?'down':''));
       row.classList.toggle('lead', rank===1);
       if(typeof CHIPS!=="undefined"){
-        const rc=row.querySelector('.rchips'), pl=CHIPS.filter(c=>c.who===d.name && ROUNDS.indexOf(c.round)>=0 && ROUNDS.indexOf(c.round)<=i).sort((a,b)=>ROUNDS.indexOf(a.round)-ROUNDS.indexOf(b.round));
-        rc.innerHTML=pl.map(c=>{const m=CHIP_META[c.chip]||{}, now=ROUNDS.indexOf(c.round)===i; return `<span class="rc${now?' now':''}" title="${m.lab||c.chip} · ${c.round}">${m.ic||'•'}</span>`;}).join('');
+        const rc=row.querySelector('.rchips'), pl=CHIPS.filter(c=>c.who===d.name && ROUNDS.indexOf(c.round)===i);
+        rc.innerHTML=pl.map(c=>{const m=CHIP_META[c.chip]||{}; return `<span class="rc now" title="${m.lab||c.chip} · ${c.round}">${m.ic||'•'}<em>${m.lab||c.chip}</em></span>`;}).join('');
       }
       if(cur>=0){
         const prev=d.ranks[cur];
