@@ -1,0 +1,345 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>League One — WC2026 Fantasy Recap</title>
+<style>
+  :root{
+    color-scheme: light dark;
+    --bg:#eef2f0; --surface:#f7faf8; --surface2:#eef3f1;
+    --ink:#0e1c1e; --muted:#566a66; --faint:#8aa09b;
+    --line:rgba(14,28,30,.12); --line2:rgba(14,28,30,.06);
+    --accent:#b7862a; --accent-ink:#7a5713; --pitch:#2f6b4f;
+    --grid:rgba(14,28,30,.09);
+    --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100; --s4:#e34948; --s5:#4a3aa7;
+    --good:#0ca30c; --crit:#d03b3b;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0a1618; --surface:#10201f; --surface2:#16292a;
+      --ink:#f2f7f5; --muted:#9fb3ad; --faint:#6f857f;
+      --line:rgba(242,247,245,.13); --line2:rgba(242,247,245,.06);
+      --accent:#f5c451; --accent-ink:#f5c451; --pitch:#3f8a63;
+      --grid:rgba(242,247,245,.10);
+      --s1:#3987e5; --s2:#199e70; --s3:#c98500; --s4:#e66767; --s5:#9085e9;
+      --good:#2bbf2b; --crit:#e5595a;
+    }
+  }
+  :root[data-theme="light"]{color-scheme:light;
+    --bg:#eef2f0; --surface:#f7faf8; --surface2:#eef3f1; --ink:#0e1c1e; --muted:#566a66; --faint:#8aa09b;
+    --line:rgba(14,28,30,.12); --line2:rgba(14,28,30,.06); --accent:#b7862a; --accent-ink:#7a5713; --pitch:#2f6b4f;
+    --grid:rgba(14,28,30,.09); --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100; --s4:#e34948; --s5:#4a3aa7; --good:#0ca30c; --crit:#d03b3b;}
+  :root[data-theme="dark"]{color-scheme:dark;
+    --bg:#0a1618; --surface:#10201f; --surface2:#16292a; --ink:#f2f7f5; --muted:#9fb3ad; --faint:#6f857f;
+    --line:rgba(242,247,245,.13); --line2:rgba(242,247,245,.06); --accent:#f5c451; --accent-ink:#f5c451; --pitch:#3f8a63;
+    --grid:rgba(242,247,245,.10); --s1:#3987e5; --s2:#199e70; --s3:#c98500; --s4:#e66767; --s5:#9085e9; --good:#2bbf2b; --crit:#e5595a;}
+
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, var(--pitch) 14%, transparent), transparent 60%);}
+  .wrap{max-width:1000px; margin:0 auto; padding:clamp(20px,4vw,48px)}
+  .num{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+  header.mast{margin-bottom:34px}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent-ink);
+    display:flex; align-items:center; gap:10px; margin:0 0 14px;}
+  .eyebrow::before{content:""; width:26px; height:2px; background:var(--accent); display:inline-block}
+  h1{font-size:clamp(36px,7.4vw,76px); line-height:.94; margin:0; font-weight:800; letter-spacing:-.02em;
+    text-transform:uppercase; text-wrap:balance; font-stretch:condensed;}
+  h1 em{font-style:normal; color:var(--accent)}
+  .dek{margin:16px 0 0; max-width:60ch; color:var(--muted); font-size:clamp(15px,1.6vw,18px)}
+  .mast-meta{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:20px; font-family:var(--mono); font-size:12.5px; color:var(--faint)}
+  .mast-meta b{color:var(--ink); font-weight:600}
+
+  section{margin:48px 0}
+  .sec-kicker{font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-ink)}
+  h2{font-size:clamp(24px,3.6vw,34px); margin:6px 0 0; font-weight:800; letter-spacing:-.01em; text-transform:uppercase; font-stretch:condensed}
+  .sec-sub{color:var(--muted); margin:6px 0 22px; max-width:64ch}
+
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:clamp(16px,2.4vw,26px);
+    box-shadow:0 1px 0 var(--line2), 0 20px 40px -32px rgba(0,0,0,.5);}
+
+  /* ---- race board (animation) ---- */
+  .race-top{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:6px}
+  .race-round{font-weight:800; font-size:clamp(18px,2.4vw,24px); text-transform:uppercase; font-stretch:condensed; letter-spacing:.01em}
+  .race-round small{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.16em; color:var(--faint); font-weight:400; text-transform:uppercase}
+  .race-ctrl{display:flex; align-items:center; gap:14px}
+  .race-play{font-family:var(--mono); font-size:13px; font-weight:700; color:var(--ink); background:var(--surface2);
+    border:1px solid var(--line); border-radius:999px; padding:8px 16px; cursor:pointer; transition:background .15s, border-color .15s}
+  .race-play:hover{border-color:var(--accent)}
+  .race-play:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .steps{display:flex; gap:7px}
+  .step-dot{width:26px; height:6px; border-radius:3px; background:var(--line); border:none; cursor:pointer; padding:0; transition:background .2s}
+  .step-dot.on{background:var(--accent)}
+  .step-dot:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .race-board{position:relative; margin-top:16px}
+  .race-row{position:absolute; left:0; right:0; display:flex; align-items:center; gap:13px; padding:0 14px;
+    background:var(--surface2); border:1px solid var(--line2); border-radius:11px;
+    transition:transform .95s cubic-bezier(.22,.61,.36,1), box-shadow .5s; will-change:transform}
+  .race-row .rk{width:26px; text-align:right; font-family:var(--mono); font-weight:700; font-size:17px; color:var(--muted); font-variant-numeric:tabular-nums}
+  .race-row .chip{width:13px; height:13px; border-radius:4px; flex:0 0 auto}
+  .race-row .rn{font-weight:600; font-size:clamp(14px,1.7vw,16px)}
+  .race-row .delta{margin-left:auto; font-family:var(--mono); font-size:12.5px; font-weight:700; color:var(--faint)}
+  .race-row .delta.up{color:var(--good)} .race-row .delta.down{color:var(--crit)}
+  .race-row.mv-up{box-shadow:inset 3px 0 0 var(--good), 0 6px 18px -10px rgba(0,0,0,.4)}
+  .race-row.mv-down{box-shadow:inset 3px 0 0 var(--crit), 0 6px 18px -10px rgba(0,0,0,.4)}
+  .race-row.lead{border-color:color-mix(in srgb,var(--accent) 55%, var(--line))}
+  .race-cap{margin-top:14px; font-family:var(--mono); font-size:11.5px; color:var(--faint)}
+
+  /* ---- bump chart ---- */
+  .chart-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap}
+  .chart-title{font-weight:700; font-size:15px}
+  .chart-note{font-family:var(--mono); font-size:11.5px; color:var(--faint)}
+  .chartbox{position:relative}
+  svg.bump{width:100%; height:auto; display:block; overflow:visible; touch-action:pan-y}
+  .grid-line{stroke:var(--grid); stroke-width:1}
+  .axis-lab{fill:var(--faint); font-family:var(--mono); font-size:12px}
+  .rank-lab{fill:var(--faint); font-family:var(--mono); font-size:11px}
+  .series-line{fill:none; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; transition:opacity .18s, stroke-width .18s}
+  .series-dot{transition:opacity .18s}
+  .series-dot.ring{stroke:var(--surface); stroke-width:2}
+  .end-label{font-family:var(--sans); font-size:12.5px; font-weight:600; dominant-baseline:middle; fill:var(--ink)}
+  .hit{fill:none; stroke:transparent; stroke-width:20; cursor:pointer}
+  .dim{opacity:.16}
+  .up{fill:var(--good)} .down{fill:var(--crit)} .flat{fill:var(--faint)}
+  .tip{position:absolute; pointer-events:none; z-index:5; opacity:0; transform:translateY(-4px); transition:opacity .12s;
+    background:var(--surface2); border:1px solid var(--line); border-radius:10px; padding:10px 12px; min-width:180px;
+    box-shadow:0 12px 30px -12px rgba(0,0,0,.55); font-size:12.5px;}
+  .tip.show{opacity:1}
+  .tip .tname{font-weight:700; display:flex; align-items:center; gap:7px; margin-bottom:6px}
+  .tip .sw{width:10px; height:10px; border-radius:3px; flex:0 0 auto}
+  .tip .trow{display:flex; justify-content:space-between; gap:16px; color:var(--muted); font-family:var(--mono); font-size:11.5px}
+  .tip .seq{margin-top:6px; font-family:var(--mono); font-size:11px; color:var(--faint)}
+  .legend{display:flex; flex-wrap:wrap; gap:6px 16px; margin:14px 2px 0; color:var(--muted)}
+  .legend span{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11.5px}
+  .legend i{width:16px; height:3px; border-radius:2px; display:inline-block}
+
+  .stand{margin-top:22px; overflow-x:auto}
+  table{border-collapse:collapse; width:100%; font-size:14px}
+  th,td{text-align:left; padding:9px 10px; border-bottom:1px solid var(--line2); white-space:nowrap}
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); font-weight:600; border-bottom:1px solid var(--line)}
+  td.r{text-align:right}
+  .pos{font-family:var(--mono); font-weight:700; color:var(--muted); width:34px}
+  .mgr{display:flex; align-items:center; gap:9px; font-weight:600}
+  .chip{width:11px; height:11px; border-radius:3px; flex:0 0 auto; box-shadow:0 0 0 1px var(--line2)}
+  .mv{font-family:var(--mono); font-weight:700; font-size:12.5px}
+
+  .awards{display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:16px; margin-top:8px}
+  .award{position:relative; overflow:hidden}
+  .award::before{content:""; position:absolute; inset:0 auto 0 0; width:4px; background:var(--edge, var(--accent))}
+  .award .tag{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint)}
+  .award .who{font-size:21px; font-weight:800; letter-spacing:-.01em; margin:6px 0 2px; font-stretch:condensed}
+  .award .stat{font-family:var(--mono); font-size:12.5px; color:var(--edge, var(--accent-ink)); font-weight:700}
+  .award p{margin:9px 0 0; color:var(--muted); font-size:13px; line-height:1.45}
+
+  footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--line); color:var(--faint); font-size:12.5px; font-family:var(--mono); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  @media (max-width:560px){h1{font-size:42px} .end-label{font-size:11px}}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">World Cup 2026 · Fantasy</p>
+    <h1>League One<br>The <em>Race</em></h1>
+    <p class="dek">Five managers, one podium, and a lead that changed hands at the Round of 16. Here's how the table moved across the knockout run — press play and watch the positions rotate.</p>
+    <div class="mast-meta">
+      <span><b>5</b> managers</span>
+      <span><b>5</b> checkpoints tracked</span>
+      <span>through the <b>Semi-finals</b></span>
+    </div>
+  </header>
+
+  <section>
+    <span class="sec-kicker">The animation · positions rotating</span>
+    <h2>Watch the table move</h2>
+    <p class="sec-sub">Every card is a manager; press play to run from the group stage to the semis. Green flash = climbed a place that round, red = dropped.</p>
+    <div class="panel" id="race-l1">
+      <div class="race-top">
+        <div class="race-round">—<small>current round</small></div>
+        <div class="race-ctrl">
+          <div class="steps"></div>
+          <button class="race-play" aria-label="Play the position animation">▶ Play</button>
+        </div>
+      </div>
+      <div class="race-board"></div>
+      <div class="race-cap">Tap a marker to jump to any checkpoint · lower is better</div>
+    </div>
+  </section>
+
+  <section>
+    <span class="sec-kicker">The full picture</span>
+    <h2>Every line, every round</h2>
+    <p class="sec-sub">The same story as one chart — hover any line to trace a manager's run through the tournament.</p>
+    <div class="panel">
+      <div class="chart-head">
+        <span class="chart-title">Rank by round — lower is better</span>
+        <span class="chart-note">hover a line for the full run</span>
+      </div>
+      <div class="chartbox" id="box-l1">
+        <svg class="bump" id="svg-l1" role="img" aria-label="Bump chart of League One rank by round"></svg>
+        <div class="tip" id="tip-l1"></div>
+      </div>
+      <div class="legend" id="leg-l1"></div>
+    </div>
+
+    <div class="panel stand">
+      <table>
+        <thead><tr><th>#</th><th>Manager</th><th class="r">GS2</th><th class="r">GS3</th><th class="r">R16</th><th class="r">QF</th><th class="r">SF</th><th class="r">Points</th><th class="r">Swing</th></tr></thead>
+        <tbody id="tab-l1"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <span class="sec-kicker">The awards</span>
+    <h2>Season superlatives</h2>
+    <div class="awards" id="awards-l1"></div>
+  </section>
+
+  <footer>
+    <span>WC2026 Fantasy · League One · through the Semi-finals</span>
+    <span>lower rank = better · ▲ places gained since GS2</span>
+  </footer>
+</div>
+
+<script>
+const ROUNDS = ["GS2","GS3","R16","QF","SF"];
+const ROUND_FULL = ["Group Stage 2","Group Stage 3","Round of 16","Quarter-finals","Semi-finals"];
+const DATA = [
+  {name:"alekriquelme", ranks:[4,3,1,1,1], pts:492, color:"var(--s3)", hl:true},
+  {name:"mdteam",       ranks:[2,1,2,2,2], pts:446, color:"var(--s1)", hl:true},
+  {name:"artElarry",    ranks:[3,4,3,3,3], pts:409, color:"var(--s5)", hl:true},
+  {name:"gmarkoss",     ranks:[1,2,4,4,4], pts:395, color:"var(--s4)", hl:true},
+  {name:"Brambedillo",  ranks:[5,5,5,5,5], pts:377, color:"var(--s2)", hl:true},
+];
+const AWARDS = [
+  {tag:"Champion's Charge", who:"alekriquelme", stat:"4th → 1st · 492 pts", edge:"var(--s3)",
+   body:"Sat fourth after the groups, then flipped the switch: top of the table from the Round of 16 onward and never threatened again."},
+  {tag:"Mr. Consistent", who:"artElarry", stat:"3·4·3·3·3 · 409 pts", edge:"var(--s5)",
+   body:"The metronome. Never higher than third, never lower than fourth — a podium finish built on zero drama and no blank rounds."},
+  {tag:"The Collapse", who:"gmarkoss", stat:"1st → 4th · 395 pts", edge:"var(--s4)",
+   body:"Led the whole league at the group stage, then slid three places by the Round of 16 and never recovered. The cautionary tale."},
+  {tag:"Wooden Spoon", who:"Brambedillo", stat:"5th every round · 377 pts", edge:"var(--s2)",
+   body:"Wire to wire at the bottom. Five checkpoints, five last places — the most consistent run in the league, just facing the wrong way."},
+];
+
+/* ---------- animated race board ---------- */
+function race(rootId, data, rowH){
+  const root=document.getElementById(rootId);
+  const board=root.querySelector('.race-board');
+  const roundLab=root.querySelector('.race-round');
+  const stepsWrap=root.querySelector('.steps');
+  const btn=root.querySelector('.race-play');
+  const N=data.length, gap=8;
+  board.style.height=(rowH*N)+'px';
+  ROUNDS.forEach((rn,j)=>{
+    const b=document.createElement('button'); b.className='step-dot'; b.setAttribute('aria-label','Jump to '+ROUND_FULL[j]);
+    b.addEventListener('click',()=>{pause();apply(j);}); stepsWrap.appendChild(b);
+  });
+  const dots=[...stepsWrap.children];
+  const rows={};
+  data.forEach(d=>{
+    const row=document.createElement('div'); row.className='race-row'; row.style.height=(rowH-gap)+'px';
+    row.innerHTML=`<span class="rk">–</span><span class="chip" style="background:${d.color}"></span><span class="rn">${d.name}</span><span class="delta"></span>`;
+    board.appendChild(row); rows[d.name]=row;
+  });
+  let cur=-1, timer=null, playing=false;
+  function apply(i){
+    data.forEach(d=>{
+      const rank=d.ranks[i], row=rows[d.name];
+      row.style.transform=`translateY(${(rank-1)*rowH}px)`;
+      row.querySelector('.rk').textContent=rank;
+      const sw=d.ranks[0]-rank, del=row.querySelector('.delta');
+      del.textContent = sw>0?`▲ ${sw}`:(sw<0?`▼ ${-sw}`:'—');
+      del.className='delta '+(sw>0?'up':(sw<0?'down':''));
+      row.classList.toggle('lead', rank===1);
+      if(cur>=0){
+        const prev=d.ranks[cur];
+        row.classList.remove('mv-up','mv-down');
+        if(rank<prev) row.classList.add('mv-up'); else if(rank>prev) row.classList.add('mv-down');
+      }
+    });
+    cur=i;
+    roundLab.innerHTML=`${ROUNDS[i]}<small>${ROUND_FULL[i]}</small>`;
+    dots.forEach((dt,j)=>dt.classList.toggle('on',j<=i));
+    window.setTimeout(()=>data.forEach(d=>rows[d.name].classList.remove('mv-up','mv-down')),950);
+  }
+  function play(){
+    if(playing){pause();return;}
+    if(cur>=ROUNDS.length-1) apply(0);
+    playing=true; btn.textContent='❚❚ Pause';
+    timer=window.setInterval(()=>{ if(cur>=ROUNDS.length-1){pause(true);return;} apply(cur+1); },1450);
+  }
+  function pause(done){playing=false; if(timer)clearInterval(timer); btn.textContent=done?'↺ Replay':'▶ Play';}
+  btn.addEventListener('click',play);
+  apply(0);
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) window.setTimeout(play,750);
+}
+
+/* ---------- bump chart ---------- */
+function renderBump(svgId, tipId, data, maxRank, opts){
+  const svg=document.getElementById(svgId), tip=document.getElementById(tipId);
+  const NS="http://www.w3.org/2000/svg";
+  const W=1000, rowH=opts.rowH, mL=34, mT=34, mB=30, mR=opts.labelSpace;
+  const H=mT+mB+rowH*(maxRank-1);
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.setAttribute("preserveAspectRatio","xMidYMid meet");
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  const plotW=W-mL-mR, x=i=>mL+plotW*(i/(ROUNDS.length-1)), y=r=>mT+rowH*(r-1);
+  const mk=(t,a)=>{const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e;};
+  ROUNDS.forEach((rn,i)=>{
+    svg.appendChild(mk("line",{class:"grid-line", x1:x(i), y1:mT-10, x2:x(i), y2:H-mB+6}));
+    const t=mk("text",{class:"axis-lab", x:x(i), y:H-mB+20, "text-anchor":"middle"}); t.textContent=rn; svg.appendChild(t);
+  });
+  const step=maxRank>10?2:1;
+  for(let r=1;r<=maxRank;r+=step){const t=mk("text",{class:"rank-lab", x:mL-12, y:y(r), "text-anchor":"end","dominant-baseline":"middle"}); t.textContent=r; svg.appendChild(t);}
+  const groups=[];
+  data.forEach((d,idx)=>{
+    const g=mk("g",{class:d.hl?"series":"series ctx"});
+    const pts=d.ranks.map((r,i)=>[x(i),y(r)]);
+    const path=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+    g.appendChild(mk("path",{class:"series-line", d:path, style:`stroke:${d.color}`}));
+    pts.forEach(p=>g.appendChild(mk("circle",{class:"series-dot"+(d.hl?" ring":""), cx:p[0], cy:p[1], r:d.hl?4.2:2.6, style:`fill:${d.color}`})));
+    if(d.hl){const ex=x(ROUNDS.length-1), ey=y(d.ranks[d.ranks.length-1]);
+      const lab=mk("text",{class:"end-label", x:ex+14, y:ey}); lab.textContent=d.name; g.appendChild(lab);}
+    g.appendChild(mk("path",{class:"hit", d:path}));
+    g.addEventListener("mouseenter",()=>focus(idx));
+    g.addEventListener("mousemove",(ev)=>moveTip(ev,d));
+    g.addEventListener("mouseleave",blur);
+    groups.push(g); svg.appendChild(g);
+  });
+  function focus(idx){groups.forEach((g,j)=>g.classList.toggle("dim",j!==idx)); const gl=groups[idx]; gl.parentNode.appendChild(gl); gl.querySelector(".series-line").style.strokeWidth="3.6";}
+  function blur(){groups.forEach(g=>{g.classList.remove("dim"); g.querySelector(".series-line").style.strokeWidth="";}); tip.classList.remove("show");}
+  function moveTip(ev,d){
+    const box=svg.parentElement.getBoundingClientRect();
+    const rx=ev.clientX-box.left, ry=ev.clientY-box.top;
+    const first=d.ranks[0], last=d.ranks[d.ranks.length-1], sw=first-last;
+    const swTxt=sw>0?`▲ +${sw}`:(sw<0?`▼ ${sw}`:"– level"), swCls=sw>0?"up":(sw<0?"down":"flat");
+    const seq=d.ranks.map((r,i)=>`${ROUNDS[i]} ${r}`).join("  ·  ");
+    tip.innerHTML=`<div class="tname"><span class="sw" style="background:${d.color}"></span>${d.name}</div>`+
+      `<div class="trow"><span>Finish</span><b class="num" style="color:var(--ink)">#${last}</b></div>`+
+      `<div class="trow"><span>Points</span><b class="num" style="color:var(--ink)">${d.pts}</b></div>`+
+      `<div class="trow"><span>Swing since GS2</span><b class="num ${swCls}">${swTxt}</b></div>`+
+      `<div class="seq">${seq}</div>`;
+    tip.classList.add("show");
+    const tw=tip.offsetWidth, th=tip.offsetHeight; let px=rx+16, py=ry-th-10;
+    if(px+tw>box.width) px=rx-tw-16; if(py<0) py=ry+16;
+    tip.style.left=px+"px"; tip.style.top=py+"px";
+  }
+}
+function legend(id,data){document.getElementById(id).innerHTML=data.filter(d=>d.hl).map(d=>`<span><i style="background:${d.color}"></i>${d.name}</span>`).join("")+(data.some(d=>!d.hl)?`<span><i style="background:var(--ctx,#9aa8a4)"></i>the field</span>`:"");}
+function table(id,data){
+  const el=document.getElementById(id), medals=["🥇","🥈","🥉"];
+  el.innerHTML=data.map((d,i)=>{
+    const first=d.ranks[0], last=d.ranks[d.ranks.length-1], sw=first-last;
+    const swTxt=sw>0?`▲ ${sw}`:(sw<0?`▼ ${Math.abs(sw)}`:"–"), swCls=sw>0?"up":(sw<0?"down":"flat");
+    const pos=i<3?medals[i]:`${i+1}`;
+    return `<tr><td class="pos">${pos}</td><td><span class="mgr"><span class="chip" style="background:${d.color}"></span>${d.name}</span></td>`+
+      d.ranks.map(r=>`<td class="r num">${r}</td>`).join("")+`<td class="r num">${d.pts}</td><td class="r mv ${swCls}">${swTxt}</td></tr>`;
+  }).join("");
+}
+function awards(id,list){document.getElementById(id).innerHTML=list.map(a=>`<div class="panel award" style="--edge:${a.edge}"><div class="tag">${a.tag}</div><div class="who">${a.who}</div><div class="stat">${a.stat}</div><p>${a.body}</p></div>`).join("");}
+
+race("race-l1", DATA, 56);
+renderBump("svg-l1","tip-l1", DATA, 5, {rowH:46, labelSpace:150});
+legend("leg-l1", DATA); table("tab-l1", DATA); awards("awards-l1", AWARDS);
+</script>
+</body></html>

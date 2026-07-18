@@ -1,0 +1,406 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>League Two — WC2026 Fantasy Recap</title>
+<style>
+  :root{
+    color-scheme: light dark;
+    --bg:#eef2f0; --surface:#f7faf8; --surface2:#eef3f1;
+    --ink:#0e1c1e; --muted:#566a66; --faint:#8aa09b;
+    --line:rgba(14,28,30,.12); --line2:rgba(14,28,30,.06);
+    --accent:#b7862a; --accent-ink:#7a5713; --pitch:#2f6b4f;
+    --grid:rgba(14,28,30,.09);
+    --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100; --s4:#e34948; --s5:#4a3aa7;
+    --ctx:#9aa8a4; --ctx-line:rgba(86,106,102,.30);
+    --good:#0ca30c; --crit:#d03b3b;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0a1618; --surface:#10201f; --surface2:#16292a;
+      --ink:#f2f7f5; --muted:#9fb3ad; --faint:#6f857f;
+      --line:rgba(242,247,245,.13); --line2:rgba(242,247,245,.06);
+      --accent:#f5c451; --accent-ink:#f5c451; --pitch:#3f8a63;
+      --grid:rgba(242,247,245,.10);
+      --s1:#3987e5; --s2:#199e70; --s3:#c98500; --s4:#e66767; --s5:#9085e9;
+      --ctx:#5f746f; --ctx-line:rgba(159,179,173,.26);
+      --good:#2bbf2b; --crit:#e5595a;
+    }
+  }
+  :root[data-theme="light"]{color-scheme:light;
+    --bg:#eef2f0; --surface:#f7faf8; --surface2:#eef3f1; --ink:#0e1c1e; --muted:#566a66; --faint:#8aa09b;
+    --line:rgba(14,28,30,.12); --line2:rgba(14,28,30,.06); --accent:#b7862a; --accent-ink:#7a5713; --pitch:#2f6b4f;
+    --grid:rgba(14,28,30,.09); --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100; --s4:#e34948; --s5:#4a3aa7;
+    --ctx:#9aa8a4; --ctx-line:rgba(86,106,102,.30); --good:#0ca30c; --crit:#d03b3b;}
+  :root[data-theme="dark"]{color-scheme:dark;
+    --bg:#0a1618; --surface:#10201f; --surface2:#16292a; --ink:#f2f7f5; --muted:#9fb3ad; --faint:#6f857f;
+    --line:rgba(242,247,245,.13); --line2:rgba(242,247,245,.06); --accent:#f5c451; --accent-ink:#f5c451; --pitch:#3f8a63;
+    --grid:rgba(242,247,245,.10); --s1:#3987e5; --s2:#199e70; --s3:#c98500; --s4:#e66767; --s5:#9085e9;
+    --ctx:#5f746f; --ctx-line:rgba(159,179,173,.26); --good:#2bbf2b; --crit:#e5595a;}
+
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, var(--pitch) 14%, transparent), transparent 60%);}
+  .wrap{max-width:1000px; margin:0 auto; padding:clamp(20px,4vw,48px)}
+  .num{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+  header.mast{margin-bottom:34px}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent-ink);
+    display:flex; align-items:center; gap:10px; margin:0 0 14px;}
+  .eyebrow::before{content:""; width:26px; height:2px; background:var(--accent); display:inline-block}
+  h1{font-size:clamp(36px,7.4vw,76px); line-height:.94; margin:0; font-weight:800; letter-spacing:-.02em;
+    text-transform:uppercase; text-wrap:balance; font-stretch:condensed;}
+  h1 em{font-style:normal; color:var(--accent)}
+  .dek{margin:16px 0 0; max-width:60ch; color:var(--muted); font-size:clamp(15px,1.6vw,18px)}
+  .mast-meta{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:20px; font-family:var(--mono); font-size:12.5px; color:var(--faint)}
+  .mast-meta b{color:var(--ink); font-weight:600}
+
+  section{margin:48px 0}
+  .sec-kicker{font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-ink)}
+  h2{font-size:clamp(24px,3.6vw,34px); margin:6px 0 0; font-weight:800; letter-spacing:-.01em; text-transform:uppercase; font-stretch:condensed}
+  .sec-sub{color:var(--muted); margin:6px 0 22px; max-width:64ch}
+
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:clamp(16px,2.4vw,26px);
+    box-shadow:0 1px 0 var(--line2), 0 20px 40px -32px rgba(0,0,0,.5);}
+
+  .race-top{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:6px}
+  .race-round{font-weight:800; font-size:clamp(18px,2.4vw,24px); text-transform:uppercase; font-stretch:condensed}
+  .race-round small{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.16em; color:var(--faint); font-weight:400; text-transform:uppercase}
+  .race-ctrl{display:flex; align-items:center; gap:14px}
+  .race-play{font-family:var(--mono); font-size:13px; font-weight:700; color:var(--ink); background:var(--surface2);
+    border:1px solid var(--line); border-radius:999px; padding:8px 16px; cursor:pointer; transition:background .15s, border-color .15s}
+  .race-play:hover{border-color:var(--accent)}
+  .race-play:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .steps{display:flex; gap:7px}
+  .step-dot{width:26px; height:6px; border-radius:3px; background:var(--line); border:none; cursor:pointer; padding:0; transition:background .2s}
+  .step-dot.on{background:var(--accent)}
+  .step-dot:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .race-board{position:relative; margin-top:16px}
+  .race-row{position:absolute; left:0; right:0; display:flex; align-items:center; gap:12px; padding:0 12px;
+    background:var(--surface2); border:1px solid var(--line2); border-radius:9px;
+    transition:transform .95s cubic-bezier(.22,.61,.36,1), box-shadow .5s; will-change:transform}
+  .race-row .rk{width:24px; text-align:right; font-family:var(--mono); font-weight:700; font-size:15px; color:var(--muted); font-variant-numeric:tabular-nums}
+  .race-row .chip{width:12px; height:12px; border-radius:4px; flex:0 0 auto}
+  .race-row .rn{font-weight:600; font-size:14px}
+  .race-row .delta{margin-left:auto; font-family:var(--mono); font-size:12px; font-weight:700; color:var(--faint)}
+  .race-row .delta.up{color:var(--good)} .race-row .delta.down{color:var(--crit)}
+  .race-row.mv-up{box-shadow:inset 3px 0 0 var(--good), 0 6px 18px -10px rgba(0,0,0,.4)}
+  .race-row.mv-down{box-shadow:inset 3px 0 0 var(--crit), 0 6px 18px -10px rgba(0,0,0,.4)}
+  .race-row.lead{border-color:color-mix(in srgb,var(--accent) 55%, var(--line))}
+  .race-cap{margin-top:14px; font-family:var(--mono); font-size:11.5px; color:var(--faint)}
+
+  .chart-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap}
+  .chart-title{font-weight:700; font-size:15px}
+  .chart-note{font-family:var(--mono); font-size:11.5px; color:var(--faint)}
+  .chartbox{position:relative}
+  svg.bump{width:100%; height:auto; display:block; overflow:visible; touch-action:pan-y}
+  .grid-line{stroke:var(--grid); stroke-width:1}
+  .axis-lab{fill:var(--faint); font-family:var(--mono); font-size:12px}
+  .rank-lab{fill:var(--faint); font-family:var(--mono); font-size:11px}
+  .series-line{fill:none; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; transition:opacity .18s, stroke-width .18s}
+  .series-dot{transition:opacity .18s}
+  .series-dot.ring{stroke:var(--surface); stroke-width:2}
+  .end-label{font-family:var(--sans); font-size:12.5px; font-weight:600; dominant-baseline:middle; fill:var(--ink)}
+  .ctx .series-line{stroke:var(--ctx-line)!important; stroke-width:1.6}
+  .ctx .series-dot{fill:var(--ctx)!important}
+  .hit{fill:none; stroke:transparent; stroke-width:18; cursor:pointer}
+  .dim{opacity:.14}
+  .up{fill:var(--good)} .down{fill:var(--crit)} .flat{fill:var(--faint)}
+  .tip{position:absolute; pointer-events:none; z-index:5; opacity:0; transform:translateY(-4px); transition:opacity .12s;
+    background:var(--surface2); border:1px solid var(--line); border-radius:10px; padding:10px 12px; min-width:180px;
+    box-shadow:0 12px 30px -12px rgba(0,0,0,.55); font-size:12.5px;}
+  .tip.show{opacity:1}
+  .tip .tname{font-weight:700; display:flex; align-items:center; gap:7px; margin-bottom:6px}
+  .tip .sw{width:10px; height:10px; border-radius:3px; flex:0 0 auto}
+  .tip .trow{display:flex; justify-content:space-between; gap:16px; color:var(--muted); font-family:var(--mono); font-size:11.5px}
+  .tip .seq{margin-top:6px; font-family:var(--mono); font-size:11px; color:var(--faint)}
+  .legend{display:flex; flex-wrap:wrap; gap:6px 16px; margin:14px 2px 0; color:var(--muted)}
+  .legend span{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11.5px}
+  .legend i{width:16px; height:3px; border-radius:2px; display:inline-block}
+
+  .stand{margin-top:22px; overflow-x:auto}
+  table{border-collapse:collapse; width:100%; font-size:14px}
+  th,td{text-align:left; padding:8px 10px; border-bottom:1px solid var(--line2); white-space:nowrap}
+  thead th{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); font-weight:600; border-bottom:1px solid var(--line)}
+  td.r{text-align:right}
+  .pos{font-family:var(--mono); font-weight:700; color:var(--muted); width:34px}
+  .mgr{display:flex; align-items:center; gap:9px; font-weight:600}
+  .chip{width:11px; height:11px; border-radius:3px; flex:0 0 auto; box-shadow:0 0 0 1px var(--line2)}
+  .mv{font-family:var(--mono); font-weight:700; font-size:12.5px}
+
+  /* ---- roster: a line on all 18 ---- */
+  .roster{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px}
+  .rcard{background:var(--surface); border:1px solid var(--line); border-radius:13px; padding:15px 16px; position:relative; overflow:hidden}
+  .rcard::before{content:""; position:absolute; inset:0 auto 0 0; width:3px; background:var(--edge, var(--ctx))}
+  .rc-top{display:flex; align-items:center; gap:9px}
+  .rc-pos{font-family:var(--mono); font-weight:700; font-size:13px; color:var(--faint); width:22px}
+  .rc-name{font-weight:700; font-size:15px}
+  .rc-sw{margin-left:auto; font-family:var(--mono); font-size:12px; font-weight:700; color:var(--faint)}
+  .rc-sw.up{color:var(--good)} .rc-sw.down{color:var(--crit)}
+  .rc-meta{font-family:var(--mono); font-size:11px; color:var(--faint); margin:8px 0 0; letter-spacing:.02em}
+  .rcard p{margin:8px 0 0; color:var(--muted); font-size:12.5px; line-height:1.45}
+
+  .awards{display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:16px; margin-top:8px}
+  .award{position:relative; overflow:hidden}
+  .award::before{content:""; position:absolute; inset:0 auto 0 0; width:4px; background:var(--edge, var(--accent))}
+  .award .tag{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint)}
+  .award .who{font-size:21px; font-weight:800; letter-spacing:-.01em; margin:6px 0 2px; font-stretch:condensed}
+  .award .stat{font-family:var(--mono); font-size:12.5px; color:var(--edge, var(--accent-ink)); font-weight:700}
+  .award p{margin:9px 0 0; color:var(--muted); font-size:13px; line-height:1.45}
+
+  footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--line); color:var(--faint); font-size:12.5px; font-family:var(--mono); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+  @media (max-width:560px){h1{font-size:42px} .end-label{font-size:11px}}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">World Cup 2026 · Fantasy</p>
+    <h1>League Two<br>The <em>Eighteen</em></h1>
+    <p class="dek">A field so deep the top five finished within eight points. Charges from the back, free-falls from the front, and a wire-to-wire scrap at the bottom. Press play and watch all eighteen positions rotate.</p>
+    <div class="mast-meta">
+      <span><b>18</b> managers</span>
+      <span><b>5</b> checkpoints tracked</span>
+      <span>through the <b>Semi-finals</b></span>
+    </div>
+  </header>
+
+  <section>
+    <span class="sec-kicker">The animation · positions rotating</span>
+    <h2>Watch the table move</h2>
+    <p class="sec-sub">All eighteen managers, running from the group stage to the semis. Green flash = climbed a place that round, red = dropped. Watch Chochek and Mataczz cut up through the pack.</p>
+    <div class="panel" id="race-l2">
+      <div class="race-top">
+        <div class="race-round">—<small>current round</small></div>
+        <div class="race-ctrl">
+          <div class="steps"></div>
+          <button class="race-play" aria-label="Play the position animation">▶ Play</button>
+        </div>
+      </div>
+      <div class="race-board"></div>
+      <div class="race-cap">Tap a marker to jump to any checkpoint · lower is better</div>
+    </div>
+  </section>
+
+  <section>
+    <span class="sec-kicker">The full picture</span>
+    <h2>Five stories, one chart</h2>
+    <p class="sec-sub">The champion, the early leader, the biggest climber, the steepest fall, and the great escape — picked out in colour against the rest of the field. Hover any line to light it up.</p>
+    <div class="panel">
+      <div class="chart-head">
+        <span class="chart-title">Rank by round — lower is better</span>
+        <span class="chart-note">hover any line to light it up</span>
+      </div>
+      <div class="chartbox" id="box-l2">
+        <svg class="bump" id="svg-l2" role="img" aria-label="Bump chart of League Two rank by round"></svg>
+        <div class="tip" id="tip-l2"></div>
+      </div>
+      <div class="legend" id="leg-l2"></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="sec-kicker">The awards</span>
+    <h2>Season superlatives</h2>
+    <div class="awards" id="awards-l2"></div>
+  </section>
+
+  <section>
+    <span class="sec-kicker">The full field · all 18</span>
+    <h2>A line on everyone</h2>
+    <p class="sec-sub">Every manager's run, top to bottom — the rank at each checkpoint (GS2 · GS3 · R16 · QF · SF), final points, and where the tournament took them.</p>
+    <div class="roster" id="roster-l2"></div>
+  </section>
+
+  <div class="panel" style="background:linear-gradient(180deg, color-mix(in srgb,var(--pitch) 10%, var(--surface)), var(--surface)); display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap">
+    <div class="num" style="font-size:30px; font-weight:700; color:var(--accent-ink); line-height:1">8</div>
+    <div style="flex:1; min-width:220px; color:var(--muted)">
+      <b style="color:var(--ink)">Still to play.</b> These standings are provisional through the Semi-finals — just eight points cover the top five. The <b style="color:var(--ink)">Final</b> and the <b style="color:var(--ink)">3rd-place play-off</b> both score into the last round, so the podium is anything but settled.
+    </div>
+  </div>
+
+  <footer>
+    <span>WC2026 Fantasy · League Two · through the Semi-finals</span>
+    <span>lower rank = better · ▲ places gained since GS2</span>
+  </footer>
+</div>
+
+<script>
+const ROUNDS = ["GS2","GS3","R16","QF","SF"];
+const ROUND_FULL = ["Group Stage 2","Group Stage 3","Round of 16","Quarter-finals","Semi-finals"];
+const DATA = [
+  {name:"Hulje",        ranks:[3,3,1,1,1],   pts:631, color:"var(--s3)", hl:true,
+   blurb:"Never out of the top three, and untouchable once it hit the front at the Round of 16 — the tournament's highest score anywhere, full stop."},
+  {name:"Tihec",        ranks:[1,1,3,4,2],   pts:602, color:"var(--s5)", hl:true,
+   blurb:"Set the early pace with back-to-back checkpoints on top, wobbled to fourth in the quarters, then surged back to grab second on the line."},
+  {name:"Chochek",      ranks:[12,8,5,2,3],  pts:602, color:"var(--s2)", hl:true,
+   blurb:"The climb of the tournament — 12th to 2nd in four steps, level on points for the runner-up spot and only edged to third on countback."},
+  {name:"DcBioo",       ranks:[11,5,4,5,4],  pts:597, color:"var(--ctx)",
+   blurb:"From 11th into the top five in a single jump, and never left it — a quietly relentless run to fourth."},
+  {name:"Mominjosi",    ranks:[4,4,2,3,5],   pts:597, color:"var(--ctx)",
+   blurb:"Lived in the top five the whole way and touched second at the Round of 16, before a late slip to fifth on the final checkpoint."},
+  {name:"Matej1313",    ranks:[6,2,6,10,6],  pts:595, color:"var(--ctx)",
+   blurb:"The rollercoaster: up to 2nd, down to 10th, back to 6th — and the biggest single semi-final haul in the league (68 points)."},
+  {name:"Gale11",       ranks:[2,9,7,6,7],   pts:590, color:"var(--ctx)",
+   blurb:"Flew out of the blocks in second, then drifted into the mid-table pack and settled around seventh."},
+  {name:"Srdela",       ranks:[14,6,8,8,8],  pts:585, color:"var(--ctx)",
+   blurb:"Bolted from 14th to 6th after the groups, then anchored a rock-steady eighth for the rest of the run."},
+  {name:"Charabara",    ranks:[8,7,9,7,9],   pts:575, color:"var(--ctx)",
+   blurb:"Mr. Mid-table — never outside 7th–9th at any checkpoint. Utterly unshakeable in the middle of the pack."},
+  {name:"Dzaja0601",    ranks:[9,13,11,9,10], pts:570, color:"var(--ctx)",
+   blurb:"Dipped to 13th, clawed back to 9th, and rode out the closing rounds around tenth."},
+  {name:"Gasho",        ranks:[5,10,14,11,11],pts:565, color:"var(--ctx)",
+   blurb:"Started brightly in fifth, then slid all the way to 14th before steadying in the low teens."},
+  {name:"Mataczz",      ranks:[18,16,16,15,12],pts:558, color:"var(--s1)", hl:true,
+   blurb:"The great escape — dead last after the groups, then a monster semi-final (63) finally hauled it six places clear of the basement."},
+  {name:"Miho Will",    ranks:[13,15,12,13,13],pts:558, color:"var(--ctx)",
+   blurb:"Camped around 13th from first checkpoint to last — the field's steadiest hand in the lower half."},
+  {name:"Srdela09",     ranks:[7,12,10,12,14], pts:556, color:"var(--s4)", hl:true,
+   blurb:"The steepest slide in the league: a top-seven side at the groups that leaked places at almost every checkpoint, down to 14th."},
+  {name:"Doms994",      ranks:[10,11,13,14,15],pts:550, color:"var(--ctx)",
+   blurb:"A gentle, unbroken drift — a place lost at nearly every checkpoint, from 10th down to 15th."},
+  {name:"FC Skoro Prvi",ranks:[15,14,15,16,16],pts:543, color:"var(--ctx)",
+   blurb:"Hovered in the low teens throughout before slipping to 16th for the closing rounds."},
+  {name:"artElarry",    ranks:[16,18,18,18,17],pts:409, color:"var(--ctx)",
+   blurb:"Propped up the bottom of the table for most of the run, with a late nudge up to 17th at the semis."},
+  {name:"Azazel 13",    ranks:[17,17,17,17,18],pts:393, color:"var(--ctx)",
+   blurb:"Wire-to-wire in the bottom two, and slipped to the very foot of the table at the final checkpoint."},
+];
+const AWARDS = [
+  {tag:"Biggest Climber", who:"Chochek", stat:"12th → 3rd · +9", edge:"var(--s2)",
+   body:"The surge of the tournament. From mid-table obscurity into a photo-finish for second, level on 602 points at the line."},
+  {tag:"The Great Escape", who:"Mataczz", stat:"18th → 12th · +6", edge:"var(--s1)",
+   body:"Dead last after the groups. Clawed six places out of the relegation air with the second-biggest semi-final haul (63)."},
+  {tag:"Free-fall", who:"Srdela09", stat:"7th → 14th · −7", edge:"var(--s4)",
+   body:"The steepest slide in either league — a top-seven side at the groups that leaked places at nearly every checkpoint."},
+  {tag:"Champion", who:"Hulje", stat:"3rd → 1st · 631 pts", edge:"var(--s3)",
+   body:"Top of an eighteen-strong field and the highest score anywhere — 631, a clear 29 clear of the tie for second."},
+];
+
+/* ---------- animated race board ---------- */
+function race(rootId, data, rowH){
+  const root=document.getElementById(rootId);
+  const board=root.querySelector('.race-board');
+  const roundLab=root.querySelector('.race-round');
+  const stepsWrap=root.querySelector('.steps');
+  const btn=root.querySelector('.race-play');
+  const N=data.length, gap=7;
+  board.style.height=(rowH*N)+'px';
+  ROUNDS.forEach((rn,j)=>{
+    const b=document.createElement('button'); b.className='step-dot'; b.setAttribute('aria-label','Jump to '+ROUND_FULL[j]);
+    b.addEventListener('click',()=>{pause();apply(j);}); stepsWrap.appendChild(b);
+  });
+  const dots=[...stepsWrap.children], rows={};
+  data.forEach(d=>{
+    const row=document.createElement('div'); row.className='race-row'; row.style.height=(rowH-gap)+'px';
+    row.innerHTML=`<span class="rk">–</span><span class="chip" style="background:${d.color}"></span><span class="rn">${d.name}</span><span class="delta"></span>`;
+    board.appendChild(row); rows[d.name]=row;
+  });
+  let cur=-1, timer=null, playing=false;
+  function apply(i){
+    data.forEach(d=>{
+      const rank=d.ranks[i], row=rows[d.name];
+      row.style.transform=`translateY(${(rank-1)*rowH}px)`;
+      row.querySelector('.rk').textContent=rank;
+      const sw=d.ranks[0]-rank, del=row.querySelector('.delta');
+      del.textContent = sw>0?`▲ ${sw}`:(sw<0?`▼ ${-sw}`:'—');
+      del.className='delta '+(sw>0?'up':(sw<0?'down':''));
+      row.classList.toggle('lead', rank===1);
+      if(cur>=0){const prev=d.ranks[cur]; row.classList.remove('mv-up','mv-down');
+        if(rank<prev) row.classList.add('mv-up'); else if(rank>prev) row.classList.add('mv-down');}
+    });
+    cur=i; roundLab.innerHTML=`${ROUNDS[i]}<small>${ROUND_FULL[i]}</small>`;
+    dots.forEach((dt,j)=>dt.classList.toggle('on',j<=i));
+    window.setTimeout(()=>data.forEach(d=>rows[d.name].classList.remove('mv-up','mv-down')),950);
+  }
+  function play(){
+    if(playing){pause();return;}
+    if(cur>=ROUNDS.length-1) apply(0);
+    playing=true; btn.textContent='❚❚ Pause';
+    timer=window.setInterval(()=>{ if(cur>=ROUNDS.length-1){pause(true);return;} apply(cur+1); },1550);
+  }
+  function pause(done){playing=false; if(timer)clearInterval(timer); btn.textContent=done?'↺ Replay':'▶ Play';}
+  btn.addEventListener('click',play);
+  apply(0);
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) window.setTimeout(play,800);
+}
+
+/* ---------- bump chart ---------- */
+function renderBump(svgId, tipId, data, maxRank, opts){
+  const svg=document.getElementById(svgId), tip=document.getElementById(tipId);
+  const NS="http://www.w3.org/2000/svg";
+  const W=1000, rowH=opts.rowH, mL=34, mT=34, mB=30, mR=opts.labelSpace;
+  const H=mT+mB+rowH*(maxRank-1);
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.setAttribute("preserveAspectRatio","xMidYMid meet");
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  const plotW=W-mL-mR, x=i=>mL+plotW*(i/(ROUNDS.length-1)), y=r=>mT+rowH*(r-1);
+  const mk=(t,a)=>{const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e;};
+  ROUNDS.forEach((rn,i)=>{
+    svg.appendChild(mk("line",{class:"grid-line", x1:x(i), y1:mT-10, x2:x(i), y2:H-mB+6}));
+    const t=mk("text",{class:"axis-lab", x:x(i), y:H-mB+20, "text-anchor":"middle"}); t.textContent=rn; svg.appendChild(t);
+  });
+  const step=maxRank>10?2:1;
+  for(let r=1;r<=maxRank;r+=step){const t=mk("text",{class:"rank-lab", x:mL-12, y:y(r), "text-anchor":"end","dominant-baseline":"middle"}); t.textContent=r; svg.appendChild(t);}
+  const groups=[];
+  data.forEach((d,idx)=>{
+    const g=mk("g",{class:d.hl?"series":"series ctx"});
+    const pts=d.ranks.map((r,i)=>[x(i),y(r)]);
+    const path=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+    g.appendChild(mk("path",{class:"series-line", d:path, style:`stroke:${d.color}`}));
+    pts.forEach(p=>g.appendChild(mk("circle",{class:"series-dot"+(d.hl?" ring":""), cx:p[0], cy:p[1], r:d.hl?4.2:2.6, style:`fill:${d.color}`})));
+    if(d.hl){const ex=x(ROUNDS.length-1), ey=y(d.ranks[d.ranks.length-1]);
+      const lab=mk("text",{class:"end-label", x:ex+14, y:ey}); lab.textContent=d.name; g.appendChild(lab);}
+    g.appendChild(mk("path",{class:"hit", d:path}));
+    g.addEventListener("mouseenter",()=>focus(idx));
+    g.addEventListener("mousemove",(ev)=>moveTip(ev,d));
+    g.addEventListener("mouseleave",blur);
+    groups.push(g); svg.appendChild(g);
+  });
+  function focus(idx){groups.forEach((g,j)=>g.classList.toggle("dim",j!==idx)); const gl=groups[idx]; gl.parentNode.appendChild(gl); gl.querySelector(".series-line").style.strokeWidth="3.6";}
+  function blur(){groups.forEach(g=>{g.classList.remove("dim"); g.querySelector(".series-line").style.strokeWidth="";}); tip.classList.remove("show");}
+  function moveTip(ev,d){
+    const box=svg.parentElement.getBoundingClientRect();
+    const rx=ev.clientX-box.left, ry=ev.clientY-box.top;
+    const first=d.ranks[0], last=d.ranks[d.ranks.length-1], sw=first-last;
+    const swTxt=sw>0?`▲ +${sw}`:(sw<0?`▼ ${sw}`:"– level"), swCls=sw>0?"up":(sw<0?"down":"flat");
+    const seq=d.ranks.map((r,i)=>`${ROUNDS[i]} ${r}`).join("  ·  ");
+    tip.innerHTML=`<div class="tname"><span class="sw" style="background:${d.color}"></span>${d.name}</div>`+
+      `<div class="trow"><span>Finish</span><b class="num" style="color:var(--ink)">#${last}</b></div>`+
+      `<div class="trow"><span>Points</span><b class="num" style="color:var(--ink)">${d.pts}</b></div>`+
+      `<div class="trow"><span>Swing since GS2</span><b class="num ${swCls}">${swTxt}</b></div>`+
+      `<div class="seq">${seq}</div>`;
+    tip.classList.add("show");
+    const tw=tip.offsetWidth, th=tip.offsetHeight; let px=rx+16, py=ry-th-10;
+    if(px+tw>box.width) px=rx-tw-16; if(py<0) py=ry+16;
+    tip.style.left=px+"px"; tip.style.top=py+"px";
+  }
+}
+function legend(id,data){document.getElementById(id).innerHTML=data.filter(d=>d.hl).map(d=>`<span><i style="background:${d.color}"></i>${d.name}</span>`).join("")+`<span><i style="background:var(--ctx)"></i>the field</span>`;}
+function table(id,data){
+  const el=document.getElementById(id), medals=["🥇","🥈","🥉"];
+  el.innerHTML=data.map((d,i)=>{
+    const first=d.ranks[0], last=d.ranks[d.ranks.length-1], sw=first-last;
+    const swTxt=sw>0?`▲ ${sw}`:(sw<0?`▼ ${Math.abs(sw)}`:"–"), swCls=sw>0?"up":(sw<0?"down":"flat");
+    const pos=i<3?medals[i]:`${i+1}`;
+    return `<tr><td class="pos">${pos}</td><td><span class="mgr"><span class="chip" style="background:${d.color}"></span>${d.name}</span></td>`+
+      d.ranks.map(r=>`<td class="r num">${r}</td>`).join("")+`<td class="r num">${d.pts}</td><td class="r mv ${swCls}">${swTxt}</td></tr>`;
+  }).join("");
+}
+function roster(id,data){
+  const el=document.getElementById(id);
+  el.innerHTML=data.map((d,i)=>{
+    const first=d.ranks[0], last=d.ranks[d.ranks.length-1], sw=first-last;
+    const swTxt=sw>0?`▲ ${sw}`:(sw<0?`▼ ${Math.abs(sw)}`:"level"), swCls=sw>0?"up":(sw<0?"down":"");
+    const edge=d.hl?d.color:"var(--ctx)";
+    return `<div class="rcard" style="--edge:${edge}">`+
+      `<div class="rc-top"><span class="rc-pos num">${i+1}</span><span class="chip" style="background:${d.color}"></span><span class="rc-name">${d.name}</span><span class="rc-sw ${swCls}">${swTxt}</span></div>`+
+      `<div class="rc-meta">${d.ranks.join(' · ')}  —  ${d.pts} pts</div>`+
+      `<p>${d.blurb}</p></div>`;
+  }).join("");
+}
+function awards(id,list){document.getElementById(id).innerHTML=list.map(a=>`<div class="panel award" style="--edge:${a.edge}"><div class="tag">${a.tag}</div><div class="who">${a.who}</div><div class="stat">${a.stat}</div><p>${a.body}</p></div>`).join("");}
+
+race("race-l2", DATA, 38);
+renderBump("svg-l2","tip-l2", DATA, 18, {rowH:20, labelSpace:150});
+legend("leg-l2", DATA); awards("awards-l2", AWARDS); roster("roster-l2", DATA);
+</script>
+</body></html>

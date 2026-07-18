@@ -1,0 +1,65 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WC2026 Fantasy — Tournament Recaps</title>
+<style>
+  :root{
+    --bg:#eef2f0; --surface:#f7faf8; --ink:#0e1c1e; --muted:#566a66; --faint:#8aa09b;
+    --line:rgba(14,28,30,.12); --accent:#b7862a; --accent-ink:#7a5713; --pitch:#2f6b4f;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0a1618; --surface:#10201f; --ink:#f2f7f5; --muted:#9fb3ad; --faint:#6f857f;
+    --line:rgba(242,247,245,.13); --accent:#f5c451; --accent-ink:#f5c451; --pitch:#3f8a63;
+  }}
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+    background-image:radial-gradient(120% 70% at 50% -10%, color-mix(in srgb,var(--pitch) 15%, transparent), transparent 60%);}
+  .wrap{max-width:900px; margin:0 auto; padding:clamp(24px,5vw,64px)}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--accent-ink);
+    display:flex; align-items:center; gap:10px; margin:0 0 16px}
+  .eyebrow::before{content:""; width:26px; height:2px; background:var(--accent)}
+  h1{font-size:clamp(38px,8vw,80px); line-height:.94; margin:0; font-weight:800; letter-spacing:-.02em;
+    text-transform:uppercase; text-wrap:balance; font-stretch:condensed}
+  h1 em{font-style:normal; color:var(--accent)}
+  .dek{margin:18px 0 0; max-width:56ch; color:var(--muted); font-size:clamp(15px,1.7vw,18px)}
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; margin-top:40px}
+  a.card{display:block; text-decoration:none; color:inherit; background:var(--surface); border:1px solid var(--line);
+    border-radius:18px; overflow:hidden; transition:transform .18s, border-color .18s, box-shadow .18s;
+    box-shadow:0 20px 40px -32px rgba(0,0,0,.5)}
+  a.card:hover{transform:translateY(-4px); border-color:var(--accent); box-shadow:0 28px 50px -30px rgba(0,0,0,.55)}
+  a.card:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .card img{width:100%; height:190px; object-fit:cover; object-position:top; display:block; border-bottom:1px solid var(--line)}
+  .card .body{padding:18px 20px}
+  .card .k{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint)}
+  .card h2{font-size:26px; margin:6px 0 2px; font-weight:800; text-transform:uppercase; font-stretch:condensed}
+  .card p{margin:6px 0 0; color:var(--muted); font-size:13.5px}
+  .card .go{display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-family:var(--mono); font-size:12.5px; font-weight:700; color:var(--accent-ink)}
+  footer{margin-top:44px; color:var(--faint); font-size:12.5px; font-family:var(--mono)}
+</style></head><body>
+<div class="wrap">
+  <p class="eyebrow">World Cup 2026 · Fantasy</p>
+  <h1>Tournament <em>Recaps</em></h1>
+  <p class="dek">How the tables moved across the knockout run — press play on each to watch the positions rotate, then explore the bump charts, standings and season awards.</p>
+  <div class="cards">
+    <a class="card" href="league-one.html">
+      <img src="league-one-preview.png" alt="League One recap preview">
+      <div class="body">
+        <div class="k">🏆 The money table · 5 managers</div>
+        <h2>League One</h2>
+        <p>A five-way sprint and a lead that changed hands at the Round of 16.</p>
+        <span class="go">Open the recap →</span>
+      </div>
+    </a>
+    <a class="card" href="league-two.html">
+      <img src="league-two-preview.png" alt="League Two recap preview">
+      <div class="body">
+        <div class="k">⚽ The big field · 18 managers</div>
+        <h2>League Two</h2>
+        <p>Eighteen deep, decided by inches — with a line on every manager.</p>
+        <span class="go">Open the recap →</span>
+      </div>
+    </a>
+  </div>
+  <footer>Provisional through the Semi-finals · positions tracked at 5 checkpoints (GS2 · GS3 · R16 · QF · SF)</footer>
+</div></body></html>
