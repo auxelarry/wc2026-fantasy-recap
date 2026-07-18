@@ -116,6 +116,15 @@
   .tip .sw{width:10px; height:10px; border-radius:3px; flex:0 0 auto}
   .tip .trow{display:flex; justify-content:space-between; gap:16px; color:var(--muted); font-family:var(--mono); font-size:11.5px}
   .tip .seq{margin-top:6px; font-family:var(--mono); font-size:11px; color:var(--faint)}
+  /* chip badges planted on the bump line */
+  .chip-badge{pointer-events:none; transition:opacity .18s, transform .18s}
+  .chip-badge .badge-ring{fill:var(--surface); stroke-width:2}
+  .chip-badge .badge-em{text-anchor:middle; dominant-baseline:central}
+  .series.pinned .chip-badge, g.series:not(.dim):hover .chip-badge{transform:scale(1.15); transform-box:fill-box; transform-origin:center}
+  .tip .tchips{margin-top:7px; font-size:14px; letter-spacing:.06em}
+  .chipkey{display:flex; flex-wrap:wrap; align-items:center; gap:6px 14px; margin:12px 2px 0; color:var(--muted)}
+  .chipkey span{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px}
+  .chipkey b{font-size:14px; font-weight:400}
   .legend{display:flex; flex-wrap:wrap; gap:6px 16px; margin:14px 2px 0; color:var(--muted)}
   .legend span{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11.5px}
   .legend i{width:16px; height:3px; border-radius:2px; display:inline-block}
@@ -197,11 +206,11 @@
   <section>
     <span class="sec-kicker">The full picture</span>
     <h2>Five stories, one chart</h2>
-    <p class="sec-sub">Five stories — the champion, the early leader, the biggest climber, the steepest fall, and the great escape — picked out in colour, with every one of the eighteen named at their finish. Hover any line to light it up.</p>
+    <p class="sec-sub">Five stories — the champion, the early leader, the biggest climber, the steepest fall, and the great escape — picked out in colour, with every one of the eighteen named at their finish. Hover any line to light it up — the badges mark where each of the five spent a chip.</p>
     <div class="panel">
       <div class="chart-head">
         <span class="chart-title">Rank by round — lower is better</span>
-        <span class="chart-note">hover to trace · click to pin</span>
+        <span class="chart-note">hover to trace · click to pin · 🃏 marks a chip</span>
       </div>
       <div class="chartbox" id="box-l2">
         <svg class="bump" id="svg-l2" role="img" aria-label="Bump chart of League Two rank by round"></svg>
@@ -369,6 +378,22 @@ function renderBump(svgId, tipId, data, maxRank, opts){
     pts.forEach(p=>g.appendChild(mk("circle",{class:"series-dot"+(d.hl?" ring":""), cx:p[0], cy:p[1], r:d.hl?4.2:2.6, style:`fill:${d.color}`})));
     {const ex=x(ROUNDS.length-1), ey=y(d.ranks[d.ranks.length-1]);
       const lab=mk("text",{class:"end-label"+(d.hl?"":" field"), x:ex+(d.hl?14:12), y:ey}); lab.textContent=d.name; g.appendChild(lab);}
+    if(d.hl && typeof CHIPS!=="undefined"){
+      const byRound={};
+      CHIPS.filter(c=>c.who===d.name).forEach(c=>{const ci=ROUNDS.indexOf(c.round); if(ci>=0)(byRound[ci]=byRound[ci]||[]).push(c);});
+      const br=Math.max(8, Math.min(11, rowH*0.44));
+      Object.keys(byRound).forEach(ck=>{
+        const ci=+ck, list=byRound[ci], nn=list.length, cx0=x(ci), cy=y(d.ranks[ci]);
+        list.forEach((c,k)=>{
+          const off=(k-(nn-1)/2)*(br*2+3), m=CHIP_META[c.chip]||{};
+          const bg=mk("g",{class:"chip-badge"});
+          bg.appendChild(mk("circle",{class:"badge-ring", cx:cx0+off, cy:cy, r:br, style:`stroke:${d.color}`}));
+          const et=mk("text",{class:"badge-em", x:cx0+off, y:cy, "font-size":(br*1.25).toFixed(1)}); et.textContent=m.ic||"•"; bg.appendChild(et);
+          const tt=mk("title"); tt.textContent=`${m.lab||c.chip} · ${c.round}`; bg.appendChild(tt);
+          g.appendChild(bg);
+        });
+      });
+    }
     g.appendChild(mk("path",{class:"hit", d:path}));
     g.addEventListener("mouseenter",()=>show(idx));
     g.addEventListener("mousemove",(ev)=>moveTip(ev,d));
@@ -392,11 +417,13 @@ function renderBump(svgId, tipId, data, maxRank, opts){
     const first=d.ranks[0], last=d.ranks[d.ranks.length-1], sw=first-last;
     const swTxt=sw>0?`▲ +${sw}`:(sw<0?`▼ ${sw}`:"– level"), swCls=sw>0?"up":(sw<0?"down":"flat");
     const seq=d.ranks.map((r,i)=>`${ROUNDS[i]} ${r}`).join("  ·  ");
+    const mychips=(typeof CHIPS!=="undefined"?CHIPS.filter(c=>c.who===d.name):[]).sort((a,b)=>ROUNDS.indexOf(a.round)-ROUNDS.indexOf(b.round));
+    const chipsHtml=mychips.length?`<div class="tchips">`+mychips.map(c=>`${(CHIP_META[c.chip]||{}).ic||"•"} ${c.round}`).join("  ")+`</div>`:"";
     tip.innerHTML=`<div class="tname"><span class="sw" style="background:${d.color}"></span>${d.name}</div>`+
       `<div class="trow"><span>Finish</span><b class="num" style="color:var(--ink)">#${last}</b></div>`+
       `<div class="trow"><span>Points</span><b class="num" style="color:var(--ink)">${d.pts}</b></div>`+
       `<div class="trow"><span>Swing since GS1</span><b class="num ${swCls}">${swTxt}</b></div>`+
-      `<div class="seq">${seq}</div>`;
+      `<div class="seq">${seq}</div>`+chipsHtml;
     tip.classList.add("show");
     const tw=tip.offsetWidth, th=tip.offsetHeight; let px=rx+16, py=ry-th-10;
     if(px+tw>box.width) px=rx-tw-16; if(py<0) py=ry+16;
@@ -527,8 +554,17 @@ function chips(id, list){
   }).join("");
 }
 
+function chipKey(boxId){
+  const box=document.getElementById(boxId); if(!box||box.querySelector(".chipkey")) return;
+  const order=["wildcard","twelfth_man","max_captain","qualification","clean_sheet"];
+  const used=new Set((typeof CHIPS!=="undefined"?CHIPS:[]).map(c=>c.chip));
+  const el=document.createElement("div"); el.className="chipkey";
+  el.innerHTML=`<span style="color:var(--faint)">chips on the line</span>`+order.filter(t=>CHIP_META[t]&&used.has(t)).map(t=>`<span><b>${CHIP_META[t].ic}</b> ${CHIP_META[t].lab}</span>`).join("");
+  box.appendChild(el);
+}
 race("race-l2", DATA, 38);
 renderBump("svg-l2","tip-l2", DATA, 18, {rowH:20, labelSpace:172});
 legend("leg-l2", DATA); awards("awards-l2", AWARDS); roster("roster-l2", DATA);
 chips("chips-l2", CHIPS);
+chipKey("box-l2");
 </script></body></html>
