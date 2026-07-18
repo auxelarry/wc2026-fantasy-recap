@@ -132,6 +132,24 @@
   .chipkey{display:flex; flex-wrap:wrap; align-items:center; gap:6px 14px; margin:12px 2px 0; color:var(--muted)}
   .chipkey span{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px}
   .chipkey b{font-size:14px; font-weight:400}
+  /* the final reckoning */
+  .reckon{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px}
+  .rk-card{position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:18px 18px 16px; box-shadow:0 1px 0 var(--line2), 0 20px 40px -34px rgba(0,0,0,.5)}
+  .rk-card::before{content:""; position:absolute; inset:0 auto 0 0; width:4px; background:var(--edge,var(--accent))}
+  .rk-pos{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint)}
+  .rk-name{font-size:22px; font-weight:800; letter-spacing:-.01em; font-stretch:condensed; margin:5px 0 6px}
+  .rk-line{display:flex; align-items:baseline; gap:9px; margin-bottom:2px}
+  .rk-pts{font-family:var(--mono); font-size:23px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums}
+  .rk-gap{font-family:var(--mono); font-size:12.5px; font-weight:700; color:var(--edge,var(--accent-ink))}
+  .rk-spark{width:100%; height:40px; display:block; margin:6px 0 2px; opacity:.92}
+  .rk-road{color:var(--muted); font-size:12.5px; line-height:1.45; margin:8px 0 13px}
+  .rk-chip{display:flex; align-items:center; gap:10px; background:var(--surface2); border:1px solid var(--line); border-radius:11px; padding:9px 11px}
+  .rk-chip .ic{font-size:19px; line-height:1; flex:0 0 auto}
+  .rk-chip .cl{font-weight:700; font-size:13px}
+  .rk-chip .cr{font-family:var(--mono); font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:.06em}
+  .reckon-foot{margin-top:16px; background:var(--surface); border:1px dashed color-mix(in srgb,var(--accent) 45%, var(--line)); border-radius:13px; padding:14px 17px; color:var(--muted); font-size:13.5px; line-height:1.55}
+  .reckon-foot b{color:var(--ink); font-weight:700}
+  .reckon-foot em{font-style:normal; color:var(--faint); font-family:var(--mono); font-size:12px}
   .legend{display:flex; flex-wrap:wrap; gap:6px 16px; margin:14px 2px 0; color:var(--muted)}
   .legend span{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11.5px}
   .legend i{width:16px; height:3px; border-radius:2px; display:inline-block}
@@ -226,6 +244,14 @@
       </div>
       <div class="legend" id="leg-l2"></div>
     </div>
+  </section>
+
+  <section>
+    <span class="sec-kicker">The top three · into the final</span>
+    <h2>The Final Reckoning</h2>
+    <p class="sec-sub">Three managers, three completely different roads to the top — and, remarkably, three different chips still unspent. Here's how it stood going into the final matchday (the 3rd-place game and the final, counted as one round); each mini-route traces the climb from the group stage to the semis, higher is better.</p>
+    <div class="reckon" id="reckon-l2"></div>
+    <div class="reckon-foot" id="reckon-foot-l2"></div>
   </section>
 
   <section>
@@ -576,9 +602,33 @@ function chipKey(boxId){
   el.innerHTML=`<span style="color:var(--faint)">chips on the line</span>`+order.filter(t=>CHIP_META[t]&&used.has(t)).map(t=>`<span><b>${CHIP_META[t].ic}</b> ${CHIP_META[t].lab}</span>`).join("");
   box.appendChild(el);
 }
+const RECKONING = {
+  names:["Hulje","Tihec","Chochek"],
+  note:{Hulje:"held — to defend the crown", Tihec:"held — to strike back", Chochek:"the last one left in the league"},
+  foot:`Twenty-nine points covered all three going into the final matchday — the 3rd-place game and the final, counted by FIFA as a single round. And each still had a chip in hand: a <b>Triple Captain</b> apiece for Hulje and Tihec, and — the only one left unspent in the entire eighteen-team league — Chochek's <b>12th Man</b>. <em>How it finished is written here once the final whistle blows.</em>`
+};
+function reckoning(id, footId, cfg){
+  const el=document.getElementById(id); if(!el) return;
+  const lead=Math.max.apply(null, cfg.names.map(n=>(DATA.find(d=>d.name===n)||{}).pts||0));
+  const order=["wildcard","twelfth_man","max_captain","qualification","clean_sheet"];
+  const medals=["1st","2nd","3rd","4th","5th"];
+  el.innerHTML=cfg.names.map((n,idx)=>{
+    const d=DATA.find(x=>x.name===n)||{}, rk=d.ranks||[];
+    const played=new Set((typeof CHIPS!=="undefined"?CHIPS:[]).filter(c=>c.who===n).map(c=>c.chip));
+    const held=order.filter(t=>!played.has(t));
+    const gap=lead-(d.pts||0), mx=18, W=200, H=44;
+    const p=rk.map((r,i)=>[(rk.length>1?i/(rk.length-1):0)*W, (r-1)/(mx-1)*H]);
+    const path=p.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' ');
+    const spark=`<svg class="rk-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${path}" fill="none" stroke="${d.color}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>`;
+    const chipHtml=held.map(t=>{const m=CHIP_META[t]||{}; return `<div class="rk-chip"><span class="ic">${m.ic}</span><div><div class="cl">${m.lab}</div><div class="cr">${cfg.note[n]||m.sub}</div></div></div>`;}).join("");
+    return `<div class="rk-card" style="--edge:${d.color}"><div class="rk-pos">${medals[idx]||''} going in</div><div class="rk-name">${n}</div><div class="rk-line"><span class="rk-pts">${d.pts}</span><span class="rk-gap">${gap===0?'the lead':'−'+gap}</span></div>${spark}<p class="rk-road">${d.blurb||''}</p>${chipHtml}</div>`;
+  }).join("");
+  if(footId&&cfg.foot){const f=document.getElementById(footId); if(f) f.innerHTML=cfg.foot;}
+}
 race("race-l2", DATA, 38);
 renderBump("svg-l2","tip-l2", DATA, 18, {rowH:20, labelSpace:172});
 legend("leg-l2", DATA); awards("awards-l2", AWARDS); roster("roster-l2", DATA);
 chips("chips-l2", CHIPS);
+reckoning("reckon-l2","reckon-foot-l2", RECKONING);
 chipKey("box-l2");
 </script></body></html>
