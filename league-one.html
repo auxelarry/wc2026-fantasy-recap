@@ -98,6 +98,8 @@
   .series-dot{transition:opacity .18s}
   .series-dot.ring{stroke:var(--surface); stroke-width:2}
   .end-label{font-family:var(--sans); font-size:12.5px; font-weight:600; dominant-baseline:middle; fill:var(--ink)}
+  .series.pinned .end-label{font-weight:800}
+  .series.pinned .series-dot{r:5.4}
   .hit{fill:none; stroke:transparent; stroke-width:20; cursor:pointer}
   .dim{opacity:.16}
   .up{fill:var(--good)} .down{fill:var(--crit)} .flat{fill:var(--faint)}
@@ -187,7 +189,7 @@
     <div class="panel">
       <div class="chart-head">
         <span class="chart-title">Rank by round — lower is better</span>
-        <span class="chart-note">hover a line for the full run</span>
+        <span class="chart-note">hover to trace · click to pin</span>
       </div>
       <div class="chartbox" id="box-l1">
         <svg class="bump" id="svg-l1" role="img" aria-label="Bump chart of League One rank by round"></svg>
@@ -249,6 +251,8 @@ const DATA = [
 const AWARDS = [
   {tag:"Champion's Charge", who:"alekriquelme", stat:"4th → 1st · 492 pts", edge:"var(--s3)",
    body:"Sat fourth after the groups, then flipped the switch: top of the table from the Round of 16 onward and never threatened again."},
+  {tag:"The Bridesmaid", who:"mdteam", stat:"led once · 2nd · 446 pts", edge:"var(--s1)",
+   body:"Topped the table after Group Stage 3 — the only lead the eventual champion ever conceded — then settled into a rock-solid second for four straight checkpoints. One blemish: the Round of 32 low that cost a €5 stake."},
   {tag:"Mr. Consistent", who:"artElarry", stat:"3·4·3·3·3 · 409 pts", edge:"var(--s5)",
    body:"The metronome. Never higher than third, never lower than fourth — a podium finish built on zero drama and no blank rounds."},
   {tag:"The Collapse", who:"gmarkoss", stat:"1st → 4th · 395 pts", edge:"var(--s4)",
@@ -336,13 +340,22 @@ function renderBump(svgId, tipId, data, maxRank, opts){
     if(d.hl){const ex=x(ROUNDS.length-1), ey=y(d.ranks[d.ranks.length-1]);
       const lab=mk("text",{class:"end-label", x:ex+14, y:ey}); lab.textContent=d.name; g.appendChild(lab);}
     g.appendChild(mk("path",{class:"hit", d:path}));
-    g.addEventListener("mouseenter",()=>focus(idx));
+    g.addEventListener("mouseenter",()=>show(idx));
     g.addEventListener("mousemove",(ev)=>moveTip(ev,d));
-    g.addEventListener("mouseleave",blur);
+    g.addEventListener("mouseleave",()=>{ show(pinned); tip.classList.remove("show"); });
+    g.addEventListener("click",(ev)=>{ ev.stopPropagation(); pinned=(pinned===idx?null:idx); show(pinned); });
     groups.push(g); svg.appendChild(g);
   });
-  function focus(idx){groups.forEach((g,j)=>g.classList.toggle("dim",j!==idx)); const gl=groups[idx]; gl.parentNode.appendChild(gl); gl.querySelector(".series-line").style.strokeWidth="3.6";}
-  function blur(){groups.forEach(g=>{g.classList.remove("dim"); g.querySelector(".series-line").style.strokeWidth="";}); tip.classList.remove("show");}
+  let pinned=null;
+  function show(active){
+    groups.forEach((g,j)=>{
+      g.classList.toggle("dim", active!=null && j!==active);
+      g.classList.toggle("pinned", pinned===j);
+      g.querySelector(".series-line").style.strokeWidth=(active!=null && j===active)?"3.6":"";
+    });
+    if(active!=null){ const gl=groups[active]; gl.parentNode.appendChild(gl); }
+  }
+  svg.addEventListener("click",(e)=>{ if(!e.target.closest(".series")){ pinned=null; show(null); } });
   function moveTip(ev,d){
     const box=svg.parentElement.getBoundingClientRect();
     const rx=ev.clientX-box.left, ry=ev.clientY-box.top;
@@ -419,5 +432,4 @@ race("race-l1", DATA, 56);
 renderBump("svg-l1","tip-l1", DATA, 5, {rowH:46, labelSpace:150});
 legend("leg-l1", DATA); table("tab-l1", DATA); awards("awards-l1", AWARDS);
 potLedger("pot-l1","potsum-l1", POT); chips("chips-l1", CHIPS);
-</script>
-</body></html>
+</script></body></html>
