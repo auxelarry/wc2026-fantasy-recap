@@ -174,18 +174,18 @@
   <header class="mast">
     <p class="eyebrow">World Cup 2026 · The Pot League</p>
     <h1>Daddy Pack<br><em>Lovers</em></h1>
-    <p class="dek">Five managers, one podium, and a pot that grows every time someone finishes last. Here's how the table moved from the opening whistle to the semis — all seven rounds — press play and watch the positions rotate.</p>
+    <p class="dek">Five managers, one podium, and a pot that grew every time someone finished last. Here's how the table moved from the opening whistle to the trophy — all eight rounds — press play and watch the positions rotate.</p>
     <div class="mast-meta">
       <span><b>5</b> managers</span>
-      <span><b>€29</b> in the pot</span>
-      <span>through the <b>Semi-finals</b></span>
+      <span><b>€39</b> in the pot</span>
+      <span>champion <b>alekriquelme</b></span>
     </div>
   </header>
 
   <section>
     <span class="sec-kicker">The animation · positions rotating</span>
     <h2>Watch the table move</h2>
-    <p class="sec-sub">Every card is a manager; press play to run from the group stage to the semis. Green flash = climbed a place that round, red = dropped.</p>
+    <p class="sec-sub">Every card is a manager; press play to run from the group stage to the Final. Green flash = climbed a place that round, red = dropped.</p>
     <div class="panel" id="race-l1">
       <div class="race-top">
         <div class="race-round">—<small>current round</small></div>
@@ -226,7 +226,7 @@
   <section>
     <span class="sec-kicker">The pot · round lows</span>
     <h2>Who went lowest — and paid</h2>
-    <p class="sec-sub">In the Daddy Pack, the lowest round score each week feeds the pot — €3 a group game, €5 a knockout. This is the round-low (fewest points that round), <b>not</b> the overall table — which is how mdteam could sit top of the standings at the Round of 32 and still pay the €5 stake.</p>
+    <p class="sec-sub">In the Daddy Pack, the lowest round score each week feeds the pot — €3 a group game, €5 a knockout, €10 the Final. This is the round-low (fewest points that round), <b>not</b> the overall table — which is how mdteam could sit second overall and still post the lowest score of the Final to pay the biggest stake of all.</p>
     <div class="panel stand">
       <table>
         <thead><tr><th>GW</th><th>Round</th><th>Lowest that round</th><th class="r">Stake</th></tr></thead>
@@ -250,32 +250,32 @@
   </section>
 
   <footer>
-    <span>Daddy Pack Lovers · WC2026 Fantasy · through the Semi-finals</span>
+    <span>Daddy Pack Lovers · WC2026 Fantasy · final · champion alekriquelme</span>
     <span>lower rank = better · ▲ places gained since GS1</span>
   </footer>
 </div>
 
 <script>
-const ROUNDS = ["GS1","GS2","GS3","R32","R16","QF","SF"];
-const ROUND_FULL = ["Group Stage 1","Group Stage 2","Group Stage 3","Round of 32","Round of 16","Quarter-finals","Semi-finals"];
+const ROUNDS = ["GS1","GS2","GS3","R32","R16","QF","SF","Final"];
+const ROUND_FULL = ["Group Stage 1","Group Stage 2","Group Stage 3","Round of 32","Round of 16","Quarter-finals","Semi-finals","Final"];
 const DATA = [
-  {name:"alekriquelme", ranks:[5,4,3,2,1,1,1], pts:492, color:"var(--s3)", hl:true},
-  {name:"mdteam",       ranks:[1,2,1,1,2,2,2], pts:446, color:"var(--s1)", hl:true},
-  {name:"artElarry",    ranks:[2,3,4,4,3,3,3], pts:409, color:"var(--s5)", hl:true},
-  {name:"gmarkoss",     ranks:[3,1,2,3,4,4,4], pts:395, color:"var(--s4)", hl:true},
-  {name:"Brambedillo",  ranks:[4,5,5,5,5,5,5], pts:377, color:"var(--s2)", hl:true},
+  {name:"alekriquelme", ranks:[5,4,3,2,1,1,1,1], pts:555, color:"var(--s3)", hl:true},
+  {name:"mdteam",       ranks:[1,2,1,1,2,2,2,2], pts:480, color:"var(--s1)", hl:true},
+  {name:"artElarry",    ranks:[2,3,4,4,3,3,3,3], pts:478, color:"var(--s5)", hl:true},
+  {name:"Brambedillo",  ranks:[4,5,5,5,5,5,5,4], pts:449, color:"var(--s2)", hl:true},
+  {name:"gmarkoss",     ranks:[3,1,2,3,4,4,4,5], pts:430, color:"var(--s4)", hl:true},
 ];
 const AWARDS = [
-  {tag:"Champion's Charge", who:"alekriquelme", stat:"5th → 1st · 492 pts", edge:"var(--s3)",
-   body:"Dead last after the opening round, then a relentless climb — top of the table from the Round of 16 onward and never threatened again."},
-  {tag:"The Bridesmaid", who:"mdteam", stat:"led 3 rounds · 2nd · 446 pts", edge:"var(--s1)",
-   body:"Topped the table three times — the opener, Group Stage 3 and the Round of 32 — but never at the finish. The delicious irony: at that same RO32 it posted the round's lowest score, a €5 stake, while still sitting first overall."},
-  {tag:"Mr. Consistent", who:"artElarry", stat:"never outside 2–4 · 409 pts", edge:"var(--s5)",
-   body:"The metronome. Across all seven checkpoints never higher than second, never lower than fourth — a podium finish built on zero drama and no blank rounds."},
-  {tag:"The Collapse", who:"gmarkoss", stat:"1st → 4th · 395 pts", edge:"var(--s4)",
-   body:"Led the whole league at Group Stage 2, then slid to fourth by the Round of 16 and never recovered. The cautionary tale."},
-  {tag:"Wooden Spoon", who:"Brambedillo", stat:"last ×6 · 377 pts", edge:"var(--s2)",
-   body:"Fourth after the opener, then last at every one of the next six checkpoints — the most consistent run in the league, just facing the wrong way."},
+  {tag:"Champion's Charge", who:"alekriquelme", stat:"5th → 1st · 555 pts", edge:"var(--s3)",
+   body:"Dead last after the opening round, then a relentless climb — top of the table from the Round of 16 onward and never threatened again. Sealed it with a 63-point final day and the Clean Sheet chip: 555, untouchable."},
+  {tag:"The Bridesmaid", who:"mdteam", stat:"led 3× · 2nd · 480 pts", edge:"var(--s1)",
+   body:"Topped the table three times — the opener, Group Stage 3 and the Round of 32 — but never at a finish, and clung to second by a two-point whisker. The cruel symmetry: it bankrolled the pot, posting the round's lowest score to pay both the €5 Round of 32 stake and the €10 Final."},
+  {tag:"Mr. Consistent", who:"artElarry", stat:"never outside 2–4 · 3rd · 478 pts", edge:"var(--s5)",
+   body:"The metronome. Across all eight checkpoints never higher than second, never lower than fourth. Spent the Triple Captain on the final day for a 69-point haul — and still came up two points short of second."},
+  {tag:"The Great Escape", who:"Brambedillo", stat:"last ×6 → 4th · 449 pts", edge:"var(--s2)",
+   body:"Bottom of the league at six straight checkpoints, staring down the wooden spoon — then the 12th Man chip and a league-best 72-point final day vaulted it two places clear of the basement on the very last kick."},
+  {tag:"Wooden Spoon", who:"gmarkoss", stat:"1st → last · 430 pts", edge:"var(--s4)",
+   body:"Led the whole league at Group Stage 2, then the long slide — fourth by the Round of 16, and a flat 35-point final day (a lone Wildcard its only chip all tournament) that dropped it to dead last, inheriting the spoon Brambedillo had carried all the way to the whistle."},
 ];
 
 /* ---------- animated race board ---------- */
@@ -433,6 +433,7 @@ const POT = [
   {gw:5, round:"Round of 16",   who:"Brambedillo",  eur:5},
   {gw:6, round:"Quarter-finals",who:"Brambedillo",  eur:5},
   {gw:7, round:"Semi-finals",   who:"artElarry",    eur:5},
+  {gw:8, round:"Final",         who:"mdteam",       eur:10},
 ];
 const CHIPS = [
   {chip:"wildcard", who:"artElarry", round:"GS3"},
@@ -448,6 +449,9 @@ const CHIPS = [
   {chip:"qualification", who:"artElarry", round:"QF"},
   {chip:"qualification", who:"mdteam", round:"SF"},
   {chip:"qualification", who:"Brambedillo", round:"SF"},
+  {chip:"clean_sheet", who:"alekriquelme", round:"Final"},
+  {chip:"max_captain", who:"artElarry", round:"Final"},
+  {chip:"twelfth_man", who:"Brambedillo", round:"Final"},
 ];
 const CHIP_META = {
   wildcard:     {ic:"🃏", lab:"Wildcard",       sub:"unlimited free transfers"},
@@ -469,9 +473,9 @@ function potLedger(id, sumId, rows){
   const tally={}; rows.forEach(r=>tally[r.who]=(tally[r.who]||0)+r.eur);
   const top=Object.entries(tally).sort((a,b)=>b[1]-a[1])[0];
   document.getElementById(sumId).innerHTML =
-    `<span>Pot so far <span class="eur">€${total}</span></span>`+
+    `<span>Final pot <span class="eur">€${total}</span></span>`+
     `<span>Biggest donor <b>${top[0]}</b> <span class="eur">€${top[1]}</span> (${seen[top[0]]}×)</span>`+
-    `<span>One round left to settle — the <b>Final</b></span>`;
+    `<span>Closed — settled at the <b>Final</b></span>`;
 }
 function chips(id, list){
   const order=["wildcard","twelfth_man","max_captain","qualification","clean_sheet"], by={};
